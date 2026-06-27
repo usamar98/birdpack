@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" role="img" aria-label="BirdPacks packaging product sheet">
+  <defs>
+    <linearGradient id="tileBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff7ea" />
+      <stop offset="1" stop-color="#ffd7aa" />
+    </linearGradient>
+    <linearGradient id="orangeBox" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb55d" />
+      <stop offset="1" stop-color="#ff4d00" />
+    </linearGradient>
+    <linearGradient id="tealBox" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8be3e8" />
+      <stop offset="1" stop-color="#0a8493" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#5a2500" flood-opacity="0.16" />
+    </filter>
+    <style>
+      .brand { font-family: Arial, Helvetica, sans-serif; font-weight: 900; fill: #ff5a0a; }
+      .label { font-family: Arial, Helvetica, sans-serif; font-weight: 800; fill: #1b5866; letter-spacing: 3px; }
+      .ink { fill: #2d150d; }
+    </style>
+  </defs>
+
+  <g id="paper-bag" transform="translate(0 0)">
+    <rect width="400" height="400" fill="url(#tileBg)" />
+    <g filter="url(#shadow)" transform="translate(83 42)">
+      <path d="M45 78h190l32 278H12Z" fill="#d99951" />
+      <path d="M45 78h190l-13-42H59Z" fill="#ffcf8d" />
+      <path d="M84 78C87 22 194 20 198 78" fill="none" stroke="#7c4a23" stroke-width="11" stroke-linecap="round" />
+      <rect x="61" y="157" width="154" height="82" rx="18" fill="#fff8ee" opacity="0.86" />
+      <text class="brand" x="138" y="204" text-anchor="middle" font-size="29">BirdPacks</text>
+    </g>
+  </g>
+
+  <g id="cardboard-box" transform="translate(400 0)">
+    <rect width="400" height="400" fill="url(#tileBg)" />
+    <g filter="url(#shadow)" transform="translate(54 120)">
+      <path d="M0 43h282v177H0Z" fill="#c68643" />
+      <path d="M0 43 54 0h280l-52 43Z" fill="#f0bd77" />
+      <path d="M282 43 334 0v177l-52 43Z" fill="#a85f2a" />
+      <rect x="73" y="93" width="132" height="60" rx="15" fill="#fff7ed" opacity="0.82" />
+      <text class="brand" x="139" y="132" text-anchor="middle" font-size="28">BP</text>
+    </g>
+  </g>
+
+  <g id="food-box" transform="translate(800 0)">
+    <rect width="400" height="400" fill="url(#tileBg)" />
+    <g filter="url(#shadow)" transform="translate(62 110)">
+      <path d="M16 72h280l-27 176H44Z" fill="#fff9ee" />
+      <path d="M16 72 67 18h178l51 54Z" fill="#ff8b2b" />
+      <path d="M75 128h160" stroke="#1b9aaa" stroke-width="14" stroke-linecap="round" />
+      <text class="brand" x="156" y="188" text-anchor="middle" font-size="31">BirdPacks</text>
+    </g>
+  </g>
+
+  <g id="gift-box" transform="translate(1200 0)">
+    <rect width="400" height="400" fill="url(#tileBg)" />
+    <g filter="url(#shadow)" transform="translate(67 108)">
+      <rect x="18" y="57" width="252" height="174" rx="16" fill="url(#orangeBox)" />
+      <rect x="133" y="57" width="24" height="174" fill="#1b5866" />
+      <rect x="18" y="120" width="252" height="24" fill="#1b5866" />
+      <path d="M145 57C116 26 90 27 84 48c-5 21 30 23 61 9Zm0 0c26-34 55-34 63-13 8 22-28 27-63 13Z" fill="none" stroke="#1b5866" stroke-width="14" stroke-linecap="round" />
+      <text class="brand" x="144" y="191" text-anchor="middle" font-size="27" fill="#fff">BP</text>
+    </g>
+  </g>
+
+  <g id="custom-box" transform="translate(0 400)">
+    <rect width="400" height="400" fill="url(#tileBg)" />
+    <g filter="url(#shadow)" transform="translate(52 96)">
+      <path d="M0 53h290v218H0Z" fill="#ffffff" />
+      <path d="M0 53 53 0h291l-54 53Z" fill="#ffe0b0" />
+      <path d="M290 53 344 0v218l-54 53Z" fill="#ffc780" />
+      <path d="M56 118h165" stroke="#ff5a0a" stroke-width="15" stroke-linecap="round" />
+      <path d="M56 161h204" stroke="#1b9aaa" stroke-width="13" stroke-linecap="round" />
+      <text class="brand" x="145" y="220" text-anchor="middle" font-size="34">BirdPacks</text>
+    </g>
+  </g>
+
+  <g id="courier-bag" transform="translate(400 400)">
+    <rect width="400" height="400" fill="url(#tileBg)" />
+    <g filter="url(#shadow)" transform="translate(68 91)">
+      <path d="M0 0h262l38 42v244H0Z" fill="url(#tealBox)" />
+      <path d="M262 0v42h38Z" fill="#086a78" />
+      <rect x="54" y="94" width="157" height="78" rx="18" fill="#ffffff" opacity="0.86" />
+      <text class="brand" x="133" y="143" text-anchor="middle" font-size="34">BP</text>
+    </g>
+  </g>
+
+  <g id="bakery" transform="translate(800 400)">
+    <rect width="400" height="400" fill="url(#tileBg)" />
+    <g filter="url(#shadow)" transform="translate(54 122)">
+      <path d="M0 57h294v165H0Z" fill="#fff8ee" />
+      <path d="M0 57 42 10h252l42 47Z" fill="#ffb25e" />
+      <circle cx="147" cy="132" r="47" fill="#f2a65a" />
+      <circle cx="128" cy="117" r="9" fill="#8a4824" />
+      <circle cx="161" cy="144" r="8" fill="#8a4824" />
+      <text class="brand" x="147" y="208" text-anchor="middle" font-size="26">BirdPacks</text>
+    </g>
+  </g>
+
+  <g id="retail" transform="translate(1200 400)">
+    <rect width="400" height="400" fill="url(#tileBg)" />
+    <g filter="url(#shadow)" transform="translate(92 57)">
+      <path d="M34 74h186l29 278H8Z" fill="url(#orangeBox)" />
+      <path d="M70 74C72 20 184 18 186 74" fill="none" stroke="#5c371f" stroke-width="11" stroke-linecap="round" />
+      <rect x="56" y="160" width="144" height="78" rx="18" fill="#fff7ed" opacity="0.86" />
+      <text class="brand" x="128" y="209" text-anchor="middle" font-size="31">BP</text>
+    </g>
+  </g>
+
+  <g id="luxury-box" transform="translate(0 800)">
+    <rect width="400" height="400" fill="url(#tileBg)" />
+    <g filter="url(#shadow)" transform="translate(54 116)">
+      <rect x="0" y="34" width="296" height="166" rx="22" fill="#2d150d" />
+      <path d="M0 34 50 0h296l-50 34Z" fill="#5a2a16" />
+      <rect x="80" y="90" width="137" height="58" rx="16" fill="#fff3e3" opacity="0.92" />
+      <text class="brand" x="148" y="128" text-anchor="middle" font-size="28">BirdPacks</text>
+    </g>
+  </g>
+
+  <g id="mailer" transform="translate(400 800)">
+    <rect width="400" height="400" fill="url(#tileBg)" />
+    <g filter="url(#shadow)" transform="translate(55 111)">
+      <rect width="292" height="204" rx="24" fill="#fffaf3" />
+      <path d="M18 34 146 122 274 34" fill="none" stroke="#ff6a13" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+      <text class="brand" x="146" y="166" text-anchor="middle" font-size="34">BP</text>
+    </g>
+  </g>
+
+  <g id="pastry-box" transform="translate(800 800)">
+    <rect width="400" height="400" fill="url(#tileBg)" />
+    <g filter="url(#shadow)" transform="translate(52 121)">
+      <path d="M0 55h300v177H0Z" fill="#ffffff" />
+      <path d="M0 55 43 0h300l-43 55Z" fill="#ffcf8d" />
+      <rect x="83" y="93" width="134" height="76" rx="38" fill="#ffdca6" stroke="#1b9aaa" stroke-width="10" />
+      <text class="brand" x="150" y="219" text-anchor="middle" font-size="27">BirdPacks</text>
+    </g>
+  </g>
+
+  <g id="retail-set" transform="translate(1200 800)">
+    <rect width="400" height="400" fill="url(#tileBg)" />
+    <g filter="url(#shadow)">
+      <g transform="translate(55 147)">
+        <path d="M0 40h178v144H0Z" fill="url(#tealBox)" />
+        <path d="M0 40 38 0h178l-38 40Z" fill="#99e1e7" />
+        <text class="brand" x="89" y="113" text-anchor="middle" font-size="31">BP</text>
+      </g>
+      <g transform="translate(198 88)">
+        <path d="M30 64h112l23 215H8Z" fill="url(#orangeBox)" />
+        <path d="M51 64C54 24 118 23 121 64" fill="none" stroke="#5c371f" stroke-width="9" stroke-linecap="round" />
+      </g>
+    </g>
+  </g>
+</svg>

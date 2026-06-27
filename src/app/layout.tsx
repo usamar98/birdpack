@@ -2,10 +2,10 @@
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://packorapackaging.example"),
-  title: "Packora Packaging | Premium Packaging Solutions",
+  metadataBase: new URL("https://birdpacks.com"),
+  title: "BirdPacks | Premium Packaging Solutions",
   description:
-    "Packora Packaging showcases premium paper bags, cardboard boxes, food packaging, gift boxes, courier bags, bakery packaging, retail packaging, and custom printed packaging for modern businesses.",
+    "BirdPacks showcases premium paper bags, cardboard boxes, food packaging, gift boxes, courier bags, bakery packaging, retail packaging, and custom printed packaging for modern businesses.",
   keywords: [
     "packaging products",
     "custom packaging",
@@ -16,13 +16,17 @@ export const metadata: Metadata = {
     "courier bags",
     "bakery packaging",
     "retail packaging",
-    "Packora Packaging",
+    "BirdPacks",
   ],
+  icons: {
+    icon: [{ url: "/bp-logo.svg", type: "image/svg+xml" }],
+    shortcut: "/bp-logo.svg",
+  },
   openGraph: {
-    title: "Packora Packaging",
+    title: "BirdPacks",
     description: "Premium Packaging Solutions for Modern Businesses",
     type: "website",
-    images: ["/images/packora-hero.png"],
+    images: ["/images/birdpacks-hero.svg"],
   },
   robots: {
     index: true,

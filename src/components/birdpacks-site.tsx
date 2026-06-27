@@ -1,8 +1,17 @@
 ﻿"use client";
 
 import Image from "next/image";
-import { FormEvent, ReactNode, useState } from "react";
-import { motion, Variants } from "framer-motion";
+import { FormEvent, ReactNode, useRef, useState } from "react";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
+
+const brand = {
+  name: "BirdPacks",
+  tagline: "Premium Packaging Solutions for Modern Businesses",
+  email: "info@birdpacks.com",
+  phone: "+923017987824",
+  whatsapp: "https://wa.me/923017987824",
+  location: "Packaging support available across Pakistan",
+};
 
 const navItems = [
   { label: "Products", href: "#products" },
@@ -236,9 +245,9 @@ function Section({ id, children, className = "" }: { id?: string; children: Reac
   );
 }
 
-function SectionHeading({ title, subtitle }: { title: string; subtitle?: string }) {
+function SectionHeading({ title, subtitle, compact = false }: { title: string; subtitle?: string; compact?: boolean }) {
   return (
-    <div className="mx-auto mb-10 max-w-3xl text-center">
+    <div className={`mx-auto max-w-3xl text-center ${compact ? "mb-6 sm:mb-8" : "mb-10"}`}>
       <h2 className="font-display text-3xl font-bold leading-tight text-[#2d150d] sm:text-4xl lg:text-5xl">{title}</h2>
       <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-[#ff5a0a]" />
       {subtitle ? <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[#70574c] sm:text-lg">{subtitle}</p> : null}
@@ -268,10 +277,13 @@ function ButtonLink({ href, children, variant = "primary" }: { href: string; chi
 
 function Logo() {
   return (
-    <a href="#top" className="group inline-flex items-center" aria-label="Packora Packaging home">
+    <a href="#top" className="group inline-flex items-center gap-3" aria-label={`${brand.name} home`}>
+      <span className="grid h-11 w-11 place-items-center rounded-2xl border border-[#ffb77f]/70 bg-white/35 shadow-[0_18px_38px_rgba(255,90,10,0.16)] backdrop-blur">
+        <Image src="/bp-logo.svg" alt="" width={36} height={36} className="h-9 w-9" />
+      </span>
       <span className="leading-none">
-        <span className="block text-2xl font-black text-[#ff5a0a]">Packora</span>
-        <span className="block pl-1 text-xs font-bold uppercase tracking-[0.18em] text-[#3b2117]">Packaging</span>
+        <span className="block text-2xl font-black text-[#ff5a0a]">{brand.name}</span>
+        <span className="block pl-1 text-xs font-bold uppercase tracking-[0.18em] text-[#1b5866]">Packaging</span>
       </span>
     </a>
   );
@@ -286,7 +298,7 @@ function ProductThumb({ sheet, alt, className = "" }: { sheet: SheetPosition; al
       aria-label={alt}
       className={`bg-[#fff1df] bg-cover bg-no-repeat ${className}`}
       style={{
-        backgroundImage: "url('/images/packora-products-sheet.png')",
+        backgroundImage: "url('/images/birdpacks-products-sheet.svg')",
         backgroundSize: "400% 300%",
         backgroundPosition: `${(col / 3) * 100}% ${(row / 2) * 100}%`,
       }}
@@ -333,7 +345,7 @@ function Hero() {
             <span className="block lg:whitespace-nowrap">for Modern Businesses</span>
           </motion.h1>
           <motion.p variants={reveal} className="mt-6 max-w-xl text-lg leading-8 text-[#70574c] sm:text-xl">
-            Premium Packaging Solutions for Modern Businesses
+            {brand.tagline}
           </motion.p>
           <motion.div variants={reveal} className="mt-9 flex flex-col gap-4 sm:flex-row">
             <ButtonLink href="#products">View Products</ButtonLink>
@@ -353,10 +365,11 @@ function Hero() {
             className="absolute inset-0 overflow-hidden rounded-[28px] bg-[#fff8ef]"
           >
             <Image
-              src="/images/packora-hero.png"
-              alt="Packora Packaging boxes, bags, food packaging, and mailer products"
+              src="/images/birdpacks-hero.svg"
+              alt="BirdPacks boxes, bags, food packaging, and mailer products"
               fill
               priority
+              unoptimized
               sizes="(max-width: 1024px) 100vw, 58vw"
               className="object-cover object-center"
             />
@@ -369,62 +382,110 @@ function Hero() {
 }
 
 function ProductCategories() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const categorySlides = Array.from({ length: Math.ceil(categories.length / 2) }, (_, index) =>
+    categories.slice(index * 2, index * 2 + 2),
+  );
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${(categorySlides.length - 1) * 100}%`]);
+
   return (
-    <Section id="products" className="py-16 sm:py-20">
-      <Container>
-        <SectionHeading title="Product Categories" />
-        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-90px" }} className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-8">
-          {categories.map((category) => (
-            <motion.article
-              key={category.name}
-              variants={reveal}
-              whileHover={{ y: -8 }}
-              className="group rounded-2xl border border-[#ead7bf] bg-white/78 p-3 text-center shadow-[0_18px_45px_rgba(69,29,0,0.06)] transition hover:border-[#ffb17a] hover:bg-white"
-            >
-              <ProductThumb sheet={category.sheet} alt={category.alt} className="aspect-square rounded-xl" />
-              <h3 className="mt-4 min-h-10 text-sm font-extrabold leading-5 text-[#32180f]">{category.name}</h3>
-            </motion.article>
-          ))}
-        </motion.div>
-      </Container>
-    </Section>
+    <section ref={sectionRef} id="products" className="relative min-h-[360vh]">
+      <div className="sticky top-0 flex min-h-screen items-center overflow-hidden py-10 sm:py-16 lg:py-20">
+        <Container>
+          <SectionHeading title="Product Categories" />
+          <div className="relative overflow-hidden rounded-[34px]" style={{ perspective: "1200px" }}>
+            <motion.div style={{ x }} className="flex">
+              {categorySlides.map((slide, slideIndex) => (
+                <div key={`category-slide-${slideIndex}`} className="grid w-full shrink-0 gap-5 px-1 sm:grid-cols-2 sm:gap-6 lg:gap-8">
+                  {slide.map((category) => (
+                    <motion.article
+                      key={category.name}
+                      whileHover={{ y: -10, rotateY: -4 }}
+                      className="group relative min-h-[245px] overflow-hidden rounded-[30px] border border-white/60 bg-white/38 p-4 text-left shadow-[0_30px_90px_rgba(51,22,0,0.12)] backdrop-blur-xl transition hover:border-[#ffb17a]/80 sm:min-h-[440px] sm:p-6 lg:min-h-[470px]"
+                    >
+                      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.55),rgba(255,255,255,0.16)_55%,rgba(23,137,153,0.08))]" />
+                      <div className="relative flex h-full flex-col">
+                        <ProductThumb sheet={category.sheet} alt={category.alt} className="min-h-[135px] flex-1 rounded-[24px] sm:min-h-[270px]" />
+                        <div className="mt-4 flex items-end justify-between gap-4 sm:mt-5 sm:gap-5">
+                          <h3 className="font-display max-w-[13rem] text-xl font-black leading-tight text-[#2d150d] sm:text-3xl">
+                            {category.name}
+                          </h3>
+                          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-[#ffbe8b]/70 bg-white/44 text-[#ff5a0a] shadow-[0_14px_35px_rgba(255,90,10,0.14)]">
+                            <Icon name="box" className="h-6 w-6" />
+                          </span>
+                        </div>
+                      </div>
+                    </motion.article>
+                  ))}
+                </div>
+              ))}
+            </motion.div>
+          </div>
+          <div className="mx-auto mt-8 h-2 max-w-xl overflow-hidden rounded-full bg-white/55">
+            <motion.div style={{ scaleX: scrollYProgress }} className="h-full origin-left rounded-full bg-[#ff5a0a]" />
+          </div>
+        </Container>
+      </div>
+    </section>
   );
 }
 
 function FeaturedProducts() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${(featuredProducts.length - 1) * 100}%`]);
+
   return (
-    <Section className="py-14 sm:py-20">
-      <Container>
-        <SectionHeading
-          title="Featured Products"
-          subtitle="Explore practical, premium packaging options that help customers understand your product quality before they contact you."
-        />
-        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-90px" }} className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-          {featuredProducts.map((product) => (
-            <motion.article
-              key={product.name}
-              variants={reveal}
-              whileHover={{ y: -10 }}
-              className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[#ead7bf] bg-white shadow-[0_22px_55px_rgba(69,29,0,0.08)]"
-            >
-              <ProductThumb sheet={product.sheet} alt={product.alt} className="aspect-[4/3] w-full" />
-              <div className="flex flex-1 flex-col p-5">
-                <h3 className="text-lg font-black text-[#2d150d]">{product.name}</h3>
-                <p className="mt-3 flex-1 text-sm leading-6 text-[#725a4f]">{product.description}</p>
-                <motion.a
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  href="#contact"
-                  className="mt-5 inline-flex min-h-11 items-center justify-center rounded-xl bg-[#ff5a0a] px-4 text-sm font-extrabold text-white shadow-[0_14px_28px_rgba(255,90,10,0.2)] transition hover:bg-[#e64d00]"
-                >
-                  Ask for Details
-                </motion.a>
-              </div>
-            </motion.article>
-          ))}
-        </motion.div>
-      </Container>
-    </Section>
+    <section id="featured" ref={sectionRef} className="relative" style={{ height: `${featuredProducts.length * 108}vh` }}>
+      <div className="sticky top-0 flex min-h-screen items-center overflow-hidden py-6 sm:py-8 lg:py-10">
+        <Container>
+          <SectionHeading
+            compact
+            title="Featured Products"
+            subtitle="Explore practical, premium packaging options that help customers understand your product quality before they contact you."
+          />
+          <div className="overflow-hidden rounded-[34px]">
+            <motion.div style={{ x }} className="flex">
+              {featuredProducts.map((product, index) => (
+                <div key={product.name} className="w-full shrink-0 px-1">
+                  <motion.article
+                    whileHover={{ y: -8 }}
+                    className="mx-auto grid min-h-[430px] max-w-5xl overflow-hidden rounded-[34px] border border-white/60 bg-white/36 shadow-[0_35px_100px_rgba(51,22,0,0.14)] backdrop-blur-xl sm:min-h-[460px] lg:grid-cols-[1.1fr_0.9fr]"
+                  >
+                    <ProductThumb sheet={product.sheet} alt={product.alt} className="min-h-[200px] sm:min-h-[240px] lg:min-h-full" />
+                    <div className="flex flex-col justify-center p-6 sm:p-10">
+                      <span className="mb-5 w-fit rounded-full border border-[#ffb17a]/70 bg-white/45 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#1b5866] sm:mb-6">
+                        {String(index + 1).padStart(2, "0")} / {String(featuredProducts.length).padStart(2, "0")}
+                      </span>
+                      <h3 className="font-display text-3xl font-black leading-tight text-[#2d150d] sm:text-5xl">{product.name}</h3>
+                      <p className="mt-4 max-w-xl text-base leading-7 text-[#6b5146] sm:mt-6 sm:text-lg sm:leading-8">{product.description}</p>
+                      <motion.a
+                        whileHover={{ y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                        href="#contact"
+                        className="mt-6 inline-flex min-h-12 w-fit items-center justify-center rounded-2xl bg-[#ff5a0a] px-6 text-sm font-extrabold text-white shadow-[0_18px_36px_rgba(255,90,10,0.22)] transition hover:bg-[#e64d00] sm:mt-7"
+                      >
+                        Ask for Details
+                      </motion.a>
+                    </div>
+                  </motion.article>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+          <div className="mx-auto mt-8 h-2 max-w-xl overflow-hidden rounded-full bg-white/55">
+            <motion.div style={{ scaleX: scrollYProgress }} className="h-full origin-left rounded-full bg-[#1b9aaa]" />
+          </div>
+        </Container>
+      </div>
+    </section>
   );
 }
 
@@ -432,7 +493,7 @@ function WhyChooseUs() {
   return (
     <Section id="why-us" className="py-14 sm:py-20">
       <Container>
-        <SectionHeading title="Why Choose Packora Packaging?" />
+        <SectionHeading title={`Why Choose ${brand.name}?`} />
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-90px" }} className="grid overflow-hidden rounded-[28px] border border-[#edd9c3] bg-white/74 shadow-[0_24px_60px_rgba(77,34,0,0.07)] sm:grid-cols-2 lg:grid-cols-5">
           {benefits.map((benefit) => (
             <motion.article key={benefit.title} variants={reveal} className="border-b border-[#edd9c3] p-7 text-center last:border-b-0 sm:border-r lg:border-b-0 lg:last:border-r-0">
@@ -509,7 +570,7 @@ function Contact() {
   return (
     <Section id="contact" className="py-14 sm:py-20">
       <Container>
-        <SectionHeading title="Get in Touch" subtitle="Tell us what packaging you need and the Packora team will guide you with product details, custom options, and next steps." />
+        <SectionHeading title="Get in Touch" subtitle={`Tell us what packaging you need and the ${brand.name} team will guide you with product details, custom options, and next steps.`} />
         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <motion.form onSubmit={handleSubmit} variants={reveal} className="rounded-[28px] border border-[#ead7bf] bg-white/86 p-6 shadow-[0_24px_60px_rgba(69,29,0,0.08)] sm:p-8">
             <div className="grid gap-5 sm:grid-cols-2">
@@ -531,18 +592,18 @@ function Contact() {
                 {submitted ? "Message Ready" : "Send Message"}
                 <Icon name="arrow" className="h-4 w-4" />
               </button>
-              <a href="https://wa.me/919876543210" className="inline-flex min-h-12 items-center justify-center gap-3 rounded-[14px] border border-[#bfe6ca] bg-[#f5fff7] px-6 py-3 text-sm font-bold text-[#16833a] transition hover:bg-white">
+              <a href={brand.whatsapp} className="inline-flex min-h-12 items-center justify-center gap-3 rounded-[14px] border border-[#bfe6ca] bg-[#f5fff7] px-6 py-3 text-sm font-bold text-[#16833a] transition hover:bg-white">
                 <Icon name="whatsapp" className="h-5 w-5" />
                 Chat on WhatsApp
               </a>
             </div>
-            {submitted ? <p className="mt-4 rounded-2xl bg-[#fff1e5] px-4 py-3 text-sm font-bold text-[#a64100]">Thanks. Your inquiry is ready for the Packora team.</p> : null}
+            {submitted ? <p className="mt-4 rounded-2xl bg-[#fff1e5] px-4 py-3 text-sm font-bold text-[#a64100]">Thanks. Your inquiry is ready for the {brand.name} team.</p> : null}
           </motion.form>
 
           <motion.aside variants={reveal} className="grid gap-5 rounded-[28px] border border-[#ead7bf] bg-white/86 p-6 shadow-[0_24px_60px_rgba(69,29,0,0.08)] sm:p-8">
-            <ContactItem icon="pin" title="Business Location" text="Your business address goes here, City, State, PIN Code" />
-            <ContactItem icon="mail" title="Email" text="info@packorapackaging.com" />
-            <ContactItem icon="phone" title="Phone" text="+91 98765 43210" />
+            <ContactItem icon="pin" title="Business Location" text={brand.location} />
+            <ContactItem icon="mail" title="Email" text={brand.email} />
+            <ContactItem icon="phone" title="Phone" text={brand.phone} />
             <div className="relative mt-2 min-h-56 overflow-hidden rounded-3xl border border-[#f0d7c1] bg-[#fff4e7]">
               <div className="absolute inset-0 opacity-65 [background-image:linear-gradient(30deg,rgba(101,70,52,0.12)_1px,transparent_1px),linear-gradient(120deg,rgba(101,70,52,0.12)_1px,transparent_1px)] [background-size:32px_32px]" />
               <div className="absolute left-1/2 top-1/2 grid h-20 w-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-[#ff5a0a] text-white shadow-[0_20px_45px_rgba(255,90,10,0.28)]">
@@ -597,14 +658,14 @@ function Footer() {
           <FooterColumn title="Product Categories" items={categories.slice(0, 6).map((item) => ({ label: item.name, href: "#products" }))} />
           <div>
             <h3 className="font-black text-[#2d150d]">Contact Info</h3>
-            <p className="mt-4 text-sm leading-7 text-[#70574c]">Your business address goes here, City, State, PIN Code</p>
-            <p className="mt-3 text-sm font-bold text-[#2d150d]">info@packorapackaging.com</p>
-            <p className="mt-2 text-sm font-bold text-[#2d150d]">+91 98765 43210</p>
+            <p className="mt-4 text-sm leading-7 text-[#70574c]">{brand.location}</p>
+            <p className="mt-3 text-sm font-bold text-[#2d150d]">{brand.email}</p>
+            <p className="mt-2 text-sm font-bold text-[#2d150d]">{brand.phone}</p>
           </div>
         </div>
       </Container>
       <div className="bg-[#ff5a0a] py-4 text-center text-xs font-bold text-white">
-        (c) 2026 Packora Packaging. Made for modern business packaging showcases.
+        (c) 2026 {brand.name}. Made for modern business packaging showcases.
       </div>
     </footer>
   );
@@ -627,9 +688,9 @@ function FooterColumn({ title, items }: { title: string; items: { label: string;
   );
 }
 
-export default function PackoraSite() {
+export default function BirdPacksSite() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fff8ef] text-[#2d150d]">
+    <main className="min-h-screen overflow-x-hidden bg-[#fff8ef] text-[#2d150d]">
       <Header />
       <Hero />
       <ProductCategories />

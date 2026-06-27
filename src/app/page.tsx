@@ -1,5 +1,5 @@
-﻿import PackoraSite from "@/components/packora-site";
+﻿import BirdPacksSite from "@/components/birdpacks-site";
 
 export default function Home() {
-  return <PackoraSite />;
+  return <BirdPacksSite />;
 }
