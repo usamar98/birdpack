@@ -24,7 +24,7 @@
 
   <g id="paper-bag" transform="translate(0 0)">
     <rect width="400" height="400" fill="url(#tileBg)" />
-    <g filter="url(#shadow)" transform="translate(83 42)">
+    <g filter="url(#shadow)" transform="translate(48 42)">
       <path d="M45 78h190l32 278H12Z" fill="#d99951" />
       <path d="M45 78h190l-13-42H59Z" fill="#ffcf8d" />
       <path d="M84 78C87 22 194 20 198 78" fill="none" stroke="#7c4a23" stroke-width="11" stroke-linecap="round" />

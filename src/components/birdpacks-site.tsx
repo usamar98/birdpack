@@ -4,6 +4,8 @@ import Image from "next/image";
 import { FormEvent, ReactNode, useRef, useState } from "react";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
 
+import StackingCards, { StackingCardProject } from "@/components/ui/stacking-card";
+
 const brand = {
   name: "BirdPacks",
   tagline: "Premium Packaging Solutions for Modern Businesses",
@@ -22,15 +24,81 @@ const navItems = [
 ];
 
 const categories = [
-  { name: "Paper bags", sheet: [0, 0], alt: "Kraft paper shopping bag" },
-  { name: "Cardboard boxes", sheet: [1, 0], alt: "Corrugated cardboard shipping box" },
-  { name: "Food packaging", sheet: [2, 0], alt: "Food packaging box" },
-  { name: "Gift boxes", sheet: [3, 0], alt: "Gift box with orange ribbon" },
-  { name: "Custom printed packaging", sheet: [0, 1], alt: "Custom printed cardboard packaging" },
-  { name: "Courier / shipping bags", sheet: [1, 1], alt: "Courier mailer bag" },
-  { name: "Bakery packaging", sheet: [2, 1], alt: "Bakery cupcake packaging" },
-  { name: "Retail packaging", sheet: [3, 1], alt: "Orange retail paper bag" },
+  {
+    name: "Paper bags",
+    description: "Reusable kraft carry bags with sturdy handles and clean branding space for shops, events, and daily orders.",
+    sheet: [0, 0],
+    alt: "Kraft paper shopping bag",
+    color: "rgba(255, 241, 223, 0.78)",
+  },
+  {
+    name: "Cardboard boxes",
+    description: "Strong corrugated packaging built for storage, shipping, and reliable product protection.",
+    sheet: [1, 0],
+    alt: "Corrugated cardboard shipping box",
+    color: "rgba(232, 249, 250, 0.74)",
+  },
+  {
+    name: "Food packaging",
+    description: "Food-safe boxes for cafes, restaurants, takeaways, catering runs, and fresh presentation.",
+    sheet: [2, 0],
+    alt: "Food packaging box",
+    color: "rgba(255, 247, 236, 0.78)",
+  },
+  {
+    name: "Gift boxes",
+    description: "Premium presentation boxes that make gifts, retail sets, and campaign packs feel finished.",
+    sheet: [3, 0],
+    alt: "Gift box with orange ribbon",
+    color: "rgba(255, 232, 218, 0.76)",
+  },
+  {
+    name: "Custom printed packaging",
+    description: "Branded packaging layouts with print-ready surfaces, color accents, and tailored finishing.",
+    sheet: [0, 1],
+    alt: "Custom printed cardboard packaging",
+    color: "rgba(255, 255, 255, 0.62)",
+  },
+  {
+    name: "Courier / shipping bags",
+    description: "Lightweight mailer bags for courier dispatch, online orders, and secure delivery workflows.",
+    sheet: [1, 1],
+    alt: "Courier mailer bag",
+    color: "rgba(229, 250, 247, 0.76)",
+  },
+  {
+    name: "Bakery packaging",
+    description: "Boxes and trays for cupcakes, pastries, and bakery items that need a polished shelf look.",
+    sheet: [2, 1],
+    alt: "Bakery cupcake packaging",
+    color: "rgba(255, 238, 206, 0.78)",
+  },
+  {
+    name: "Retail packaging",
+    description: "Retail-ready bags and packs that help products stand out while staying practical to carry.",
+    sheet: [3, 1],
+    alt: "Orange retail paper bag",
+    color: "rgba(255, 225, 208, 0.76)",
+  },
 ] as const;
+
+const productSheetUrl = "/images/birdpacks-products-sheet.svg";
+
+const categoryStackProjects: StackingCardProject[] = categories.map((category, index) => {
+  const [col, row] = category.sheet;
+
+  return {
+    title: category.name,
+    description: category.description,
+    link: productSheetUrl,
+    color: category.color,
+    imageAlt: category.alt,
+    imageSize: "400% 300%",
+    imagePosition: `${(col / 3) * 100}% ${(row / 2) * 100}%`,
+    eyebrow: `Category ${String(index + 1).padStart(2, "0")}`,
+    ctaHref: "#contact",
+  };
+});
 
 const featuredProducts = [
   {
@@ -353,17 +421,8 @@ function Hero() {
           </motion.div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 34, scale: 0.96 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
-          className="relative min-h-[300px] sm:min-h-[380px] lg:aspect-[16/9] lg:min-h-0"
-        >
-          <motion.div
-            animate={{ y: [0, -14, 0], rotate: [0, 0.5, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-0 overflow-hidden rounded-[28px] bg-[#fff8ef]"
-          >
+        <div className="relative min-h-[300px] sm:min-h-[380px] lg:aspect-[16/9] lg:min-h-0">
+          <div className="absolute inset-0 overflow-hidden rounded-[28px] bg-[#fff8ef]">
             <Image
               src="/images/birdpacks-hero.svg"
               alt="BirdPacks boxes, bags, food packaging, and mailer products"
@@ -373,117 +432,135 @@ function Hero() {
               sizes="(max-width: 1024px) 100vw, 58vw"
               className="object-cover object-center"
             />
-          </motion.div>
+          </div>
 
-        </motion.div>
+        </div>
       </Container>
     </section>
   );
 }
 
 function ProductCategories() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const categorySlides = Array.from({ length: Math.ceil(categories.length / 2) }, (_, index) =>
-    categories.slice(index * 2, index * 2 + 2),
-  );
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${(categorySlides.length - 1) * 100}%`]);
-
   return (
-    <section ref={sectionRef} id="products" className="relative min-h-[360vh]">
-      <div className="sticky top-0 flex min-h-screen items-center overflow-hidden py-10 sm:py-16 lg:py-20">
-        <Container>
-          <SectionHeading title="Product Categories" />
-          <div className="relative overflow-hidden rounded-[34px]" style={{ perspective: "1200px" }}>
-            <motion.div style={{ x }} className="flex">
-              {categorySlides.map((slide, slideIndex) => (
-                <div key={`category-slide-${slideIndex}`} className="grid w-full shrink-0 gap-5 px-1 sm:grid-cols-2 sm:gap-6 lg:gap-8">
-                  {slide.map((category) => (
-                    <motion.article
-                      key={category.name}
-                      whileHover={{ y: -10, rotateY: -4 }}
-                      className="group relative min-h-[245px] overflow-hidden rounded-[30px] border border-white/60 bg-white/38 p-4 text-left shadow-[0_30px_90px_rgba(51,22,0,0.12)] backdrop-blur-xl transition hover:border-[#ffb17a]/80 sm:min-h-[440px] sm:p-6 lg:min-h-[470px]"
-                    >
-                      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.55),rgba(255,255,255,0.16)_55%,rgba(23,137,153,0.08))]" />
-                      <div className="relative flex h-full flex-col">
-                        <ProductThumb sheet={category.sheet} alt={category.alt} className="min-h-[135px] flex-1 rounded-[24px] sm:min-h-[270px]" />
-                        <div className="mt-4 flex items-end justify-between gap-4 sm:mt-5 sm:gap-5">
-                          <h3 className="font-display max-w-[13rem] text-xl font-black leading-tight text-[#2d150d] sm:text-3xl">
-                            {category.name}
-                          </h3>
-                          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-[#ffbe8b]/70 bg-white/44 text-[#ff5a0a] shadow-[0_14px_35px_rgba(255,90,10,0.14)]">
-                            <Icon name="box" className="h-6 w-6" />
-                          </span>
-                        </div>
-                      </div>
-                    </motion.article>
-                  ))}
-                </div>
-              ))}
-            </motion.div>
-          </div>
-          <div className="mx-auto mt-8 h-2 max-w-xl overflow-hidden rounded-full bg-white/55">
-            <motion.div style={{ scaleX: scrollYProgress }} className="h-full origin-left rounded-full bg-[#ff5a0a]" />
-          </div>
-        </Container>
-      </div>
-    </section>
+    <StackingCards
+      id="products"
+      title="Product Categories"
+      subtitle="Scroll through BirdPacks packaging categories as each card stacks into place with larger transparent panels and product artwork."
+      projects={categoryStackProjects}
+    />
   );
 }
 
 function FeaturedProducts() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
+  const desktopRef = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: desktopProgress } = useScroll({
+    target: desktopRef,
     offset: ["start start", "end end"],
   });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", `-${(featuredProducts.length - 1) * 100}%`]);
+  const { scrollYProgress: mobileProgress } = useScroll({
+    target: mobileRef,
+    offset: ["start start", "end end"],
+  });
+  const desktopX = useTransform(desktopProgress, [0, 1], ["0%", `-${(featuredProducts.length - 1) * 100}%`]);
+  const mobileSlides = featuredProducts.flatMap((product, index) => [
+    { type: "image" as const, product, index },
+    { type: "details" as const, product, index },
+  ]);
+  const mobileX = useTransform(mobileProgress, [0, 1], ["0%", `-${(mobileSlides.length - 1) * 100}%`]);
 
   return (
-    <section id="featured" ref={sectionRef} className="relative" style={{ height: `${featuredProducts.length * 108}vh` }}>
-      <div className="sticky top-0 flex min-h-screen items-center overflow-hidden py-6 sm:py-8 lg:py-10">
-        <Container>
-          <SectionHeading
-            compact
-            title="Featured Products"
-            subtitle="Explore practical, premium packaging options that help customers understand your product quality before they contact you."
-          />
-          <div className="overflow-hidden rounded-[34px]">
-            <motion.div style={{ x }} className="flex">
-              {featuredProducts.map((product, index) => (
-                <div key={product.name} className="w-full shrink-0 px-1">
-                  <motion.article
-                    whileHover={{ y: -8 }}
-                    className="mx-auto grid min-h-[430px] max-w-5xl overflow-hidden rounded-[34px] border border-white/60 bg-white/36 shadow-[0_35px_100px_rgba(51,22,0,0.14)] backdrop-blur-xl sm:min-h-[460px] lg:grid-cols-[1.1fr_0.9fr]"
-                  >
-                    <ProductThumb sheet={product.sheet} alt={product.alt} className="min-h-[200px] sm:min-h-[240px] lg:min-h-full" />
-                    <div className="flex flex-col justify-center p-6 sm:p-10">
-                      <span className="mb-5 w-fit rounded-full border border-[#ffb17a]/70 bg-white/45 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#1b5866] sm:mb-6">
-                        {String(index + 1).padStart(2, "0")} / {String(featuredProducts.length).padStart(2, "0")}
-                      </span>
-                      <h3 className="font-display text-3xl font-black leading-tight text-[#2d150d] sm:text-5xl">{product.name}</h3>
-                      <p className="mt-4 max-w-xl text-base leading-7 text-[#6b5146] sm:mt-6 sm:text-lg sm:leading-8">{product.description}</p>
-                      <motion.a
-                        whileHover={{ y: -2 }}
-                        whileTap={{ scale: 0.98 }}
-                        href="#contact"
-                        className="mt-6 inline-flex min-h-12 w-fit items-center justify-center rounded-2xl bg-[#ff5a0a] px-6 text-sm font-extrabold text-white shadow-[0_18px_36px_rgba(255,90,10,0.22)] transition hover:bg-[#e64d00] sm:mt-7"
-                      >
-                        Ask for Details
-                      </motion.a>
+    <section id="featured" className="relative scroll-mt-16">
+      <div ref={desktopRef} className="relative hidden lg:block" style={{ height: `${featuredProducts.length * 125}vh` }}>
+        <div className="sticky top-0 flex h-screen items-center overflow-hidden py-4">
+          <Container>
+            <SectionHeading
+              compact
+              title="Featured Products"
+              subtitle="Explore practical, premium packaging options that help customers understand your product quality before they contact you."
+            />
+            <div className="overflow-hidden rounded-[34px]">
+              <motion.div style={{ x: desktopX }} className="flex">
+                {featuredProducts.map((product, index) => (
+                  <div key={product.name} className="w-full shrink-0 px-1">
+                    <motion.article
+                      whileHover={{ y: -8 }}
+                      className="mx-auto grid h-[440px] max-w-5xl overflow-hidden rounded-[34px] border border-white/60 bg-white/36 shadow-[0_35px_100px_rgba(51,22,0,0.14)] backdrop-blur-xl lg:grid-cols-[1.08fr_0.92fr]"
+                    >
+                      <ProductThumb sheet={product.sheet} alt={product.alt} className="min-h-full" />
+                      <div className="flex flex-col justify-center p-10">
+                        <span className="mb-6 w-fit rounded-full border border-[#ffb17a]/70 bg-white/45 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#1b5866]">
+                          {String(index + 1).padStart(2, "0")} / {String(featuredProducts.length).padStart(2, "0")}
+                        </span>
+                        <h3 className="font-display text-5xl font-black leading-tight text-[#2d150d]">{product.name}</h3>
+                        <p className="mt-6 max-w-xl text-lg leading-8 text-[#6b5146]">{product.description}</p>
+                        <motion.a
+                          whileHover={{ y: -2 }}
+                          whileTap={{ scale: 0.98 }}
+                          href="#contact"
+                          className="mt-8 inline-flex min-h-12 w-fit items-center justify-center rounded-2xl bg-[#ff5a0a] px-6 text-sm font-extrabold text-white shadow-[0_18px_36px_rgba(255,90,10,0.22)] transition hover:bg-[#e64d00]"
+                        >
+                          Ask for Details
+                        </motion.a>
+                      </div>
+                    </motion.article>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+            <div className="mx-auto mt-8 h-2 max-w-xl overflow-hidden rounded-full bg-white/55">
+              <motion.div style={{ scaleX: desktopProgress }} className="h-full origin-left rounded-full bg-[#1b9aaa]" />
+            </div>
+          </Container>
+        </div>
+      </div>
+
+      <div ref={mobileRef} className="relative lg:hidden" style={{ height: `${mobileSlides.length * 104}vh` }}>
+        <div className="sticky top-0 flex min-h-screen items-center overflow-hidden py-6">
+          <Container>
+            <SectionHeading compact title="Featured Products" subtitle="Scroll each product in two steps: image first, then details." />
+            <div className="overflow-hidden rounded-[30px]">
+              <motion.div style={{ x: mobileX }} className="flex">
+                {mobileSlides.map((slide) => {
+                  const counter = `${String(slide.index + 1).padStart(2, "0")} / ${String(featuredProducts.length).padStart(2, "0")}`;
+                  const key = `${slide.product.name}-${slide.type}`;
+
+                  return (
+                    <div key={key} className="w-full shrink-0 px-1">
+                      {slide.type === "image" ? (
+                        <article className="mx-auto flex min-h-[500px] flex-col overflow-hidden rounded-[30px] border border-white/60 bg-white/36 p-5 shadow-[0_28px_78px_rgba(51,22,0,0.13)] backdrop-blur-xl">
+                          <span className="mb-4 w-fit rounded-full border border-[#ffb17a]/70 bg-white/45 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#1b5866]">
+                            {counter} image
+                          </span>
+                          <h3 className="font-display text-3xl font-black leading-tight text-[#2d150d]">{slide.product.name}</h3>
+                          <ProductThumb sheet={slide.product.sheet} alt={slide.product.alt} className="mt-5 min-h-[330px] flex-1 rounded-[24px]" />
+                        </article>
+                      ) : (
+                        <article className="mx-auto flex min-h-[500px] flex-col justify-center overflow-hidden rounded-[30px] border border-white/60 bg-white/36 p-7 shadow-[0_28px_78px_rgba(51,22,0,0.13)] backdrop-blur-xl">
+                          <span className="mb-6 w-fit rounded-full border border-[#ffb17a]/70 bg-white/45 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#1b5866]">
+                            {counter} details
+                          </span>
+                          <h3 className="font-display text-4xl font-black leading-tight text-[#2d150d]">{slide.product.name}</h3>
+                          <p className="mt-6 text-base leading-8 text-[#6b5146]">{slide.product.description}</p>
+                          <motion.a
+                            whileTap={{ scale: 0.98 }}
+                            href="#contact"
+                            className="mt-8 inline-flex min-h-12 w-fit items-center justify-center rounded-2xl bg-[#ff5a0a] px-6 text-sm font-extrabold text-white shadow-[0_18px_36px_rgba(255,90,10,0.22)] transition hover:bg-[#e64d00]"
+                          >
+                            Ask for Details
+                          </motion.a>
+                        </article>
+                      )}
                     </div>
-                  </motion.article>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-          <div className="mx-auto mt-8 h-2 max-w-xl overflow-hidden rounded-full bg-white/55">
-            <motion.div style={{ scaleX: scrollYProgress }} className="h-full origin-left rounded-full bg-[#1b9aaa]" />
-          </div>
-        </Container>
+                  );
+                })}
+              </motion.div>
+            </div>
+            <div className="mx-auto mt-6 h-2 max-w-xs overflow-hidden rounded-full bg-white/55">
+              <motion.div style={{ scaleX: mobileProgress }} className="h-full origin-left rounded-full bg-[#1b9aaa]" />
+            </div>
+          </Container>
+        </div>
       </div>
     </section>
   );
@@ -690,7 +767,7 @@ function FooterColumn({ title, items }: { title: string; items: { label: string;
 
 export default function BirdPacksSite() {
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#fff8ef] text-[#2d150d]">
+    <main className="min-h-screen overflow-x-clip bg-[#fff8ef] text-[#2d150d]">
       <Header />
       <Hero />
       <ProductCategories />
