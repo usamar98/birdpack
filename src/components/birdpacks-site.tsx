@@ -23,78 +23,87 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
+const productImages = {
+  paperBag: "/images/products/paper-bag.png",
+  cardboardBox: "/images/products/cardboard-box.png",
+  foodPackaging: "/images/products/food-packaging.png",
+  giftBox: "/images/products/gift-box.png",
+  customPrinted: "/images/products/custom-printed.png",
+  courierBag: "/images/products/courier-bag.png",
+  bakeryBox: "/images/products/bakery-box.png",
+  retailBag: "/images/products/retail-bag.png",
+  luxuryBox: "/images/products/luxury-box.png",
+  mailerBox: "/images/products/mailer-box.png",
+  pastryBox: "/images/products/pastry-box.png",
+  packagingSet: "/images/products/packaging-set.png",
+} as const;
+
 const categories = [
   {
     name: "Paper bags",
     description: "Reusable kraft carry bags with sturdy handles and clean branding space for shops, events, and daily orders.",
-    sheet: [0, 0],
+    image: productImages.paperBag,
     alt: "Kraft paper shopping bag",
     color: "rgba(255, 241, 223, 0.78)",
   },
   {
     name: "Cardboard boxes",
     description: "Strong corrugated packaging built for storage, shipping, and reliable product protection.",
-    sheet: [1, 0],
+    image: productImages.cardboardBox,
     alt: "Corrugated cardboard shipping box",
     color: "rgba(232, 249, 250, 0.74)",
   },
   {
     name: "Food packaging",
     description: "Food-safe boxes for cafes, restaurants, takeaways, catering runs, and fresh presentation.",
-    sheet: [2, 0],
+    image: productImages.foodPackaging,
     alt: "Food packaging box",
     color: "rgba(255, 247, 236, 0.78)",
   },
   {
     name: "Gift boxes",
     description: "Premium presentation boxes that make gifts, retail sets, and campaign packs feel finished.",
-    sheet: [3, 0],
+    image: productImages.giftBox,
     alt: "Gift box with orange ribbon",
     color: "rgba(255, 232, 218, 0.76)",
   },
   {
     name: "Custom printed packaging",
     description: "Branded packaging layouts with print-ready surfaces, color accents, and tailored finishing.",
-    sheet: [0, 1],
+    image: productImages.customPrinted,
     alt: "Custom printed cardboard packaging",
     color: "rgba(255, 255, 255, 0.62)",
   },
   {
     name: "Courier / shipping bags",
     description: "Lightweight mailer bags for courier dispatch, online orders, and secure delivery workflows.",
-    sheet: [1, 1],
+    image: productImages.courierBag,
     alt: "Courier mailer bag",
     color: "rgba(229, 250, 247, 0.76)",
   },
   {
     name: "Bakery packaging",
     description: "Boxes and trays for cupcakes, pastries, and bakery items that need a polished shelf look.",
-    sheet: [2, 1],
+    image: productImages.bakeryBox,
     alt: "Bakery cupcake packaging",
     color: "rgba(255, 238, 206, 0.78)",
   },
   {
     name: "Retail packaging",
     description: "Retail-ready bags and packs that help products stand out while staying practical to carry.",
-    sheet: [3, 1],
+    image: productImages.retailBag,
     alt: "Orange retail paper bag",
     color: "rgba(255, 225, 208, 0.76)",
   },
 ] as const;
 
-const productSheetUrl = "/images/packora-products-sheet.png";
-
 const categoryStackProjects: StackingCardProject[] = categories.map((category, index) => {
-  const [col, row] = category.sheet;
-
   return {
     title: category.name,
     description: category.description,
-    link: productSheetUrl,
+    link: category.image,
     color: category.color,
     imageAlt: category.alt,
-    imageSize: "400% 300%",
-    imagePosition: `${(col / 3) * 100}% ${(row / 2) * 100}%`,
     eyebrow: `Category ${String(index + 1).padStart(2, "0")}`,
     ctaHref: "#contact",
   };
@@ -104,31 +113,31 @@ const featuredProducts = [
   {
     name: "Kraft Paper Bag",
     description: "Strong, eco-friendly paper bags for retail and daily business needs.",
-    sheet: [0, 0],
+    image: productImages.paperBag,
     alt: "Kraft paper bag product",
   },
   {
     name: "Corrugated Box",
     description: "Durable boxes designed for safe storage, handling, and shipment.",
-    sheet: [1, 0],
+    image: productImages.cardboardBox,
     alt: "Corrugated box product",
   },
   {
     name: "Food Packaging Box",
     description: "Food-safe packaging for restaurants, cafes, takeaways, and events.",
-    sheet: [2, 0],
+    image: productImages.foodPackaging,
     alt: "Food packaging product",
   },
   {
     name: "Premium Gift Box",
     description: "Elegant rigid boxes that give products a polished presentation.",
-    sheet: [3, 0],
+    image: productImages.giftBox,
     alt: "Premium gift box product",
   },
   {
     name: "Courier / Mailer Bag",
     description: "Lightweight mailer bags for secure courier and shipping needs.",
-    sheet: [1, 1],
+    image: productImages.courierBag,
     alt: "Courier mailer bag product",
   },
 ] as const;
@@ -162,23 +171,21 @@ const benefits = [
 ] as const;
 
 const galleryItems = [
-  { sheet: [0, 0], alt: "Kraft paper bag gallery image" },
-  { sheet: [1, 0], alt: "Cardboard box gallery image" },
-  { sheet: [2, 0], alt: "Food box gallery image" },
-  { sheet: [3, 0], alt: "Gift box gallery image" },
-  { sheet: [0, 1], alt: "Custom printed packaging gallery image" },
-  { sheet: [1, 1], alt: "Courier bag gallery image" },
-  { sheet: [2, 1], alt: "Bakery packaging gallery image" },
-  { sheet: [3, 1], alt: "Retail bag gallery image" },
-  { sheet: [0, 2], alt: "Luxury box gallery image" },
-  { sheet: [1, 2], alt: "Mailer box gallery image" },
-  { sheet: [2, 2], alt: "Bakery pastry box gallery image" },
-  { sheet: [3, 2], alt: "Retail packaging set gallery image" },
+  { image: productImages.paperBag, alt: "Kraft paper bag gallery image" },
+  { image: productImages.cardboardBox, alt: "Cardboard box gallery image" },
+  { image: productImages.foodPackaging, alt: "Food box gallery image" },
+  { image: productImages.giftBox, alt: "Gift box gallery image" },
+  { image: productImages.customPrinted, alt: "Custom printed packaging gallery image" },
+  { image: productImages.courierBag, alt: "Courier bag gallery image" },
+  { image: productImages.bakeryBox, alt: "Bakery packaging gallery image" },
+  { image: productImages.retailBag, alt: "Retail bag gallery image" },
+  { image: productImages.luxuryBox, alt: "Luxury box gallery image" },
+  { image: productImages.mailerBox, alt: "Mailer box gallery image" },
+  { image: productImages.pastryBox, alt: "Bakery pastry box gallery image" },
+  { image: productImages.packagingSet, alt: "Retail packaging set gallery image" },
 ] as const;
 
 type IconName = (typeof benefits)[number]["icon"] | "pin" | "mail" | "phone" | "whatsapp" | "arrow" | "box";
-
-type SheetPosition = readonly [number, number];
 
 const reveal: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -357,18 +364,15 @@ function Logo() {
   );
 }
 
-function ProductThumb({ sheet, alt, className = "" }: { sheet: SheetPosition; alt: string; className?: string }) {
-  const [col, row] = sheet;
-
+function ProductThumb({ image, alt, className = "" }: { image: string; alt: string; className?: string }) {
   return (
     <div
       role="img"
       aria-label={alt}
       className={`bg-transparent bg-cover bg-no-repeat ${className}`}
       style={{
-        backgroundImage: `url('${productSheetUrl}')`,
-        backgroundSize: "400% 300%",
-        backgroundPosition: `${(col / 3) * 100}% ${(row / 2) * 100}%`,
+        backgroundImage: `url('${image}')`,
+        backgroundPosition: "center",
       }}
     />
   );
@@ -399,38 +403,32 @@ function Header() {
 
 function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden">
-      <Container className="grid items-center gap-10 py-10 sm:py-14 lg:min-h-[560px] lg:grid-cols-[0.94fr_1.06fr] lg:py-10">
-        <motion.div variants={stagger} initial="hidden" animate="visible" className="relative z-10 max-w-3xl">
-          <motion.h1
-            variants={reveal}
-            className="font-display max-w-[650px] text-[40px] font-black leading-[1] text-[#2d150d] sm:text-[54px] lg:text-[58px]"
-          >
+    <section id="top" className="relative isolate overflow-hidden">
+      <Image
+        src="/images/birdpack-hero.png"
+        alt="BirdPack packaging products displayed as bags, boxes, mailers, and gift packaging"
+        fill
+        priority
+        sizes="100vw"
+        className="absolute inset-0 -z-20 object-cover object-[62%_center]"
+      />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.78)_38%,rgba(255,255,255,0.26)_68%,rgba(255,255,255,0.06)_100%)]" />
+      <Container className="flex min-h-[620px] items-center py-16 sm:py-20 lg:min-h-[680px]">
+        <div className="relative z-10 w-full max-w-3xl">
+          <h1 className="font-display max-w-[700px] text-[42px] font-black leading-[1] text-[#2d150d] drop-shadow-[0_2px_12px_rgba(255,255,255,0.55)] sm:text-[56px] lg:text-[68px]">
             <span className="block lg:whitespace-nowrap">High-Quality</span>
-            <span className="block lg:whitespace-nowrap">Packaging Products</span>
+            <span className="block sm:hidden">Packaging</span>
+            <span className="block sm:hidden">Products</span>
+            <span className="hidden sm:block lg:whitespace-nowrap">Packaging Products</span>
             <span className="block lg:whitespace-nowrap">for Modern Businesses</span>
-          </motion.h1>
-          <motion.p variants={reveal} className="mt-6 max-w-xl text-lg leading-8 text-[#70574c] sm:text-xl">
+          </h1>
+          <p className="mt-6 max-w-[320px] text-base leading-7 text-[#70574c] sm:max-w-xl sm:text-xl sm:leading-8">
             {brand.tagline}
-          </motion.p>
-          <motion.div variants={reveal} className="mt-9 flex flex-col gap-4 sm:flex-row">
+          </p>
+          <div className="mt-9 flex max-w-[350px] flex-col gap-4 sm:max-w-none sm:flex-row">
             <ButtonLink href="#products">View Products</ButtonLink>
             <ButtonLink href="#contact" variant="secondary">Contact Us</ButtonLink>
-          </motion.div>
-        </motion.div>
-
-        <div className="relative min-h-[300px] sm:min-h-[380px] lg:aspect-[16/9] lg:min-h-0">
-          <div className="absolute inset-0 overflow-hidden rounded-[28px] bg-transparent">
-            <Image
-              src="/images/packora-hero.png"
-              alt="Original packaging products including boxes, bags, food packaging, and mailer products"
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 58vw"
-              className="object-cover object-center"
-            />
           </div>
-
         </div>
       </Container>
     </section>
@@ -470,7 +468,7 @@ function FeaturedProductCard({ product, index }: { product: (typeof featuredProd
   return (
     <article className="featured-product-card group relative isolate overflow-hidden rounded-[30px] border border-white/58 bg-white/24 shadow-[0_26px_70px_rgba(51,22,0,0.12)] backdrop-blur-xl md:min-h-[470px]">
       <div className="relative z-10 h-[270px] overflow-hidden md:hidden">
-        <ProductThumb sheet={product.sheet} alt={product.alt} className="h-full w-full" />
+        <ProductThumb image={product.image} alt={product.alt} className="h-full w-full" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(45,21,13,0.5))]" />
         <div className="pointer-events-none absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3 text-white">
           <h4 className="font-display text-2xl font-black leading-tight drop-shadow-md">{product.name}</h4>
@@ -493,7 +491,7 @@ function FeaturedProductCard({ product, index }: { product: (typeof featuredProd
         </a>
       </div>
       <div className="featured-product-front pointer-events-none absolute inset-0 z-10 hidden overflow-hidden transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] md:block">
-        <ProductThumb sheet={product.sheet} alt={product.alt} className="h-full w-full" />
+        <ProductThumb image={product.image} alt={product.alt} className="h-full w-full" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(45,21,13,0.5))]" />
         <div className="pointer-events-none absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3 text-white">
           <h4 className="font-display text-2xl font-black leading-tight drop-shadow-md">{product.name}</h4>
@@ -534,7 +532,7 @@ function CustomPackaging() {
     <Section id="custom" className="py-14 sm:py-20">
       <Container>
         <div className="grid gap-6 rounded-[32px] border border-[#ead7bf] bg-white/82 p-4 shadow-[0_28px_70px_rgba(69,29,0,0.08)] lg:grid-cols-[0.95fr_1.15fr_0.95fr] lg:p-6">
-          <ProductThumb sheet={[3, 2]} alt="Custom packaging set with orange and white boxes" className="min-h-[280px] rounded-[24px]" />
+          <ProductThumb image={productImages.packagingSet} alt="Custom packaging set with orange and white boxes" className="min-h-[280px] rounded-[24px]" />
           <div className="flex flex-col justify-center px-3 py-5 lg:px-6">
             <h2 className="font-display text-3xl font-bold leading-tight text-[#2d150d] sm:text-4xl">Custom Packaging Made for Your Brand</h2>
             <p className="mt-5 text-base leading-8 text-[#70574c]">
@@ -567,7 +565,7 @@ function Gallery() {
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-90px" }} className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
           {galleryItems.map((item, index) => (
             <motion.div key={`${item.alt}-${index}`} variants={reveal} whileHover={{ y: -7, scale: 1.015 }} className="overflow-hidden rounded-2xl border border-[#ead7bf] bg-white shadow-[0_18px_45px_rgba(69,29,0,0.07)]">
-              <ProductThumb sheet={item.sheet} alt={item.alt} className="aspect-[4/3]" />
+              <ProductThumb image={item.image} alt={item.alt} className="aspect-[4/3]" />
             </motion.div>
           ))}
         </motion.div>
