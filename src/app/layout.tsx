@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     title: "BirdPacks",
     description: "Premium Packaging Solutions for Modern Businesses",
     type: "website",
-    images: ["/images/birdpacks-hero.svg"],
+    images: ["/images/packora-hero.png"],
   },
   robots: {
     index: true,

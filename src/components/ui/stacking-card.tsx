@@ -80,7 +80,7 @@ export function Card({
         </a>
       </div>
 
-      <div className="relative z-10 min-h-[220px] overflow-hidden rounded-[24px] border border-white/64 bg-[#fff1df] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.42)] sm:min-h-[320px] lg:my-auto lg:size-[330px] lg:min-h-0 lg:justify-self-center">
+      <div className="relative z-10 min-h-[220px] overflow-hidden rounded-[24px] border border-white/64 bg-transparent shadow-[inset_0_0_0_1px_rgba(255,255,255,0.42)] sm:min-h-[320px] lg:my-auto lg:size-[330px] lg:min-h-0 lg:justify-self-center">
         <motion.div
           role="img"
           aria-label={imageAlt}
@@ -114,9 +114,8 @@ const StackingCards = forwardRef<HTMLElement, StackingCardsProps>(({ id, title, 
 
   return (
     <section id={id} ref={ref} className="relative">
-      <div ref={container} className="relative bg-[#fff8ef]" style={{ height: `${projects.length * 88 + 100}vh` }}>
+      <div ref={container} className="relative bg-transparent" style={{ height: `${projects.length * 88 + 100}vh` }}>
         <div className="sticky top-0 z-10 flex h-screen items-center overflow-hidden py-4 sm:py-5">
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,90,10,0.09)_1px,transparent_1px),linear-gradient(to_bottom,rgba(27,154,170,0.08)_1px,transparent_1px)] bg-[size:52px_52px] [mask-image:radial-gradient(ellipse_68%_48%_at_50%_18%,#000_58%,transparent_100%)]" />
           <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col px-5 sm:px-8 lg:px-10">
             <div className="mx-auto mb-5 max-w-4xl text-center sm:mb-7">
               <p className="text-xs font-black uppercase tracking-[0.24em] text-[#1b5866]">BirdPacks range</p>

@@ -1,8 +1,8 @@
 ﻿"use client";
 
 import Image from "next/image";
-import { FormEvent, ReactNode, useRef, useState } from "react";
-import { motion, useScroll, useTransform, Variants } from "framer-motion";
+import { FormEvent, ReactNode, useState } from "react";
+import { motion, Variants } from "framer-motion";
 
 import StackingCards, { StackingCardProject } from "@/components/ui/stacking-card";
 
@@ -82,7 +82,7 @@ const categories = [
   },
 ] as const;
 
-const productSheetUrl = "/images/birdpacks-products-sheet.svg";
+const productSheetUrl = "/images/packora-products-sheet.png";
 
 const categoryStackProjects: StackingCardProject[] = categories.map((category, index) => {
   const [col, row] = category.sheet;
@@ -364,9 +364,9 @@ function ProductThumb({ sheet, alt, className = "" }: { sheet: SheetPosition; al
     <div
       role="img"
       aria-label={alt}
-      className={`bg-[#fff1df] bg-cover bg-no-repeat ${className}`}
+      className={`bg-transparent bg-cover bg-no-repeat ${className}`}
       style={{
-        backgroundImage: "url('/images/birdpacks-products-sheet.svg')",
+        backgroundImage: `url('${productSheetUrl}')`,
         backgroundSize: "400% 300%",
         backgroundPosition: `${(col / 3) * 100}% ${(row / 2) * 100}%`,
       }}
@@ -376,7 +376,7 @@ function ProductThumb({ sheet, alt, className = "" }: { sheet: SheetPosition; al
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-[#ead8c5]/70 bg-[#fff9f0]/92 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-[#ead8c5]/60 bg-white/42 backdrop-blur-xl">
       <Container className="flex h-16 items-center justify-between">
         <Logo />
         <nav aria-label="Primary navigation" className="hidden items-center gap-9 lg:flex">
@@ -400,8 +400,6 @@ function Header() {
 function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="absolute left-0 top-20 h-80 w-80 rounded-full bg-[#ffb067]/20 blur-3xl" />
-      <div className="absolute right-0 top-24 h-96 w-96 rounded-full bg-[#ff5a0a]/10 blur-3xl" />
       <Container className="grid items-center gap-10 py-10 sm:py-14 lg:min-h-[560px] lg:grid-cols-[0.94fr_1.06fr] lg:py-10">
         <motion.div variants={stagger} initial="hidden" animate="visible" className="relative z-10 max-w-3xl">
           <motion.h1
@@ -422,13 +420,12 @@ function Hero() {
         </motion.div>
 
         <div className="relative min-h-[300px] sm:min-h-[380px] lg:aspect-[16/9] lg:min-h-0">
-          <div className="absolute inset-0 overflow-hidden rounded-[28px] bg-[#fff8ef]">
+          <div className="absolute inset-0 overflow-hidden rounded-[28px] bg-transparent">
             <Image
-              src="/images/birdpacks-hero.svg"
-              alt="BirdPacks boxes, bags, food packaging, and mailer products"
+              src="/images/packora-hero.png"
+              alt="Original packaging products including boxes, bags, food packaging, and mailer products"
               fill
               priority
-              unoptimized
               sizes="(max-width: 1024px) 100vw, 58vw"
               className="object-cover object-center"
             />
@@ -445,124 +442,67 @@ function ProductCategories() {
     <StackingCards
       id="products"
       title="Product Categories"
-      subtitle="Scroll through BirdPacks packaging categories as each card stacks into place with larger transparent panels and product artwork."
+      subtitle="Packaging categories for retail, shipping, food, gifting, bakery, and custom branded orders."
       projects={categoryStackProjects}
     />
   );
 }
 
 function FeaturedProducts() {
-  const desktopRef = useRef<HTMLDivElement>(null);
-  const mobileRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: desktopProgress } = useScroll({
-    target: desktopRef,
-    offset: ["start start", "end end"],
-  });
-  const { scrollYProgress: mobileProgress } = useScroll({
-    target: mobileRef,
-    offset: ["start start", "end end"],
-  });
-  const desktopX = useTransform(desktopProgress, [0, 1], ["0%", `-${(featuredProducts.length - 1) * 100}%`]);
-  const mobileSlides = featuredProducts.flatMap((product, index) => [
-    { type: "image" as const, product, index },
-    { type: "details" as const, product, index },
-  ]);
-  const mobileX = useTransform(mobileProgress, [0, 1], ["0%", `-${(mobileSlides.length - 1) * 100}%`]);
-
   return (
-    <section id="featured" className="relative scroll-mt-16">
-      <div ref={desktopRef} className="relative hidden lg:block" style={{ height: `${featuredProducts.length * 125}vh` }}>
-        <div className="sticky top-0 flex h-screen items-center overflow-hidden py-4">
-          <Container>
-            <SectionHeading
-              compact
-              title="Featured Products"
-              subtitle="Explore practical, premium packaging options that help customers understand your product quality before they contact you."
-            />
-            <div className="overflow-hidden rounded-[34px]">
-              <motion.div style={{ x: desktopX }} className="flex">
-                {featuredProducts.map((product, index) => (
-                  <div key={product.name} className="w-full shrink-0 px-1">
-                    <motion.article
-                      whileHover={{ y: -8 }}
-                      className="mx-auto grid h-[440px] max-w-5xl overflow-hidden rounded-[34px] border border-white/60 bg-white/36 shadow-[0_35px_100px_rgba(51,22,0,0.14)] backdrop-blur-xl lg:grid-cols-[1.08fr_0.92fr]"
-                    >
-                      <ProductThumb sheet={product.sheet} alt={product.alt} className="min-h-full" />
-                      <div className="flex flex-col justify-center p-10">
-                        <span className="mb-6 w-fit rounded-full border border-[#ffb17a]/70 bg-white/45 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#1b5866]">
-                          {String(index + 1).padStart(2, "0")} / {String(featuredProducts.length).padStart(2, "0")}
-                        </span>
-                        <h3 className="font-display text-5xl font-black leading-tight text-[#2d150d]">{product.name}</h3>
-                        <p className="mt-6 max-w-xl text-lg leading-8 text-[#6b5146]">{product.description}</p>
-                        <motion.a
-                          whileHover={{ y: -2 }}
-                          whileTap={{ scale: 0.98 }}
-                          href="#contact"
-                          className="mt-8 inline-flex min-h-12 w-fit items-center justify-center rounded-2xl bg-[#ff5a0a] px-6 text-sm font-extrabold text-white shadow-[0_18px_36px_rgba(255,90,10,0.22)] transition hover:bg-[#e64d00]"
-                        >
-                          Ask for Details
-                        </motion.a>
-                      </div>
-                    </motion.article>
-                  </div>
-                ))}
-              </motion.div>
-            </div>
-            <div className="mx-auto mt-8 h-2 max-w-xl overflow-hidden rounded-full bg-white/55">
-              <motion.div style={{ scaleX: desktopProgress }} className="h-full origin-left rounded-full bg-[#1b9aaa]" />
-            </div>
-          </Container>
+    <Section id="featured" className="scroll-mt-16 py-14 sm:py-20">
+      <Container>
+        <SectionHeading
+          title="Featured Products"
+          subtitle="Explore practical, premium packaging options that help customers understand your product quality before they contact you."
+        />
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {featuredProducts.map((product, index) => (
+            <FeaturedProductCard key={product.name} product={product} index={index} />
+          ))}
+        </div>
+      </Container>
+    </Section>
+  );
+}
+
+function FeaturedProductCard({ product, index }: { product: (typeof featuredProducts)[number]; index: number }) {
+  return (
+    <article className="featured-product-card group relative isolate overflow-hidden rounded-[30px] border border-white/58 bg-white/24 shadow-[0_26px_70px_rgba(51,22,0,0.12)] backdrop-blur-xl md:min-h-[470px]">
+      <div className="relative z-10 h-[270px] overflow-hidden md:hidden">
+        <ProductThumb sheet={product.sheet} alt={product.alt} className="h-full w-full" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(45,21,13,0.5))]" />
+        <div className="pointer-events-none absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3 text-white">
+          <h4 className="font-display text-2xl font-black leading-tight drop-shadow-md">{product.name}</h4>
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/78 text-[#2d150d] backdrop-blur">
+            <Icon name="arrow" className="h-5 w-5" />
+          </span>
         </div>
       </div>
-
-      <div ref={mobileRef} className="relative lg:hidden" style={{ height: `${mobileSlides.length * 104}vh` }}>
-        <div className="sticky top-0 flex min-h-screen items-center overflow-hidden py-6">
-          <Container>
-            <SectionHeading compact title="Featured Products" subtitle="Scroll each product in two steps: image first, then details." />
-            <div className="overflow-hidden rounded-[30px]">
-              <motion.div style={{ x: mobileX }} className="flex">
-                {mobileSlides.map((slide) => {
-                  const counter = `${String(slide.index + 1).padStart(2, "0")} / ${String(featuredProducts.length).padStart(2, "0")}`;
-                  const key = `${slide.product.name}-${slide.type}`;
-
-                  return (
-                    <div key={key} className="w-full shrink-0 px-1">
-                      {slide.type === "image" ? (
-                        <article className="mx-auto flex min-h-[500px] flex-col overflow-hidden rounded-[30px] border border-white/60 bg-white/36 p-5 shadow-[0_28px_78px_rgba(51,22,0,0.13)] backdrop-blur-xl">
-                          <span className="mb-4 w-fit rounded-full border border-[#ffb17a]/70 bg-white/45 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#1b5866]">
-                            {counter} image
-                          </span>
-                          <h3 className="font-display text-3xl font-black leading-tight text-[#2d150d]">{slide.product.name}</h3>
-                          <ProductThumb sheet={slide.product.sheet} alt={slide.product.alt} className="mt-5 min-h-[330px] flex-1 rounded-[24px]" />
-                        </article>
-                      ) : (
-                        <article className="mx-auto flex min-h-[500px] flex-col justify-center overflow-hidden rounded-[30px] border border-white/60 bg-white/36 p-7 shadow-[0_28px_78px_rgba(51,22,0,0.13)] backdrop-blur-xl">
-                          <span className="mb-6 w-fit rounded-full border border-[#ffb17a]/70 bg-white/45 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#1b5866]">
-                            {counter} details
-                          </span>
-                          <h3 className="font-display text-4xl font-black leading-tight text-[#2d150d]">{slide.product.name}</h3>
-                          <p className="mt-6 text-base leading-8 text-[#6b5146]">{slide.product.description}</p>
-                          <motion.a
-                            whileTap={{ scale: 0.98 }}
-                            href="#contact"
-                            className="mt-8 inline-flex min-h-12 w-fit items-center justify-center rounded-2xl bg-[#ff5a0a] px-6 text-sm font-extrabold text-white shadow-[0_18px_36px_rgba(255,90,10,0.22)] transition hover:bg-[#e64d00]"
-                          >
-                            Ask for Details
-                          </motion.a>
-                        </article>
-                      )}
-                    </div>
-                  );
-                })}
-              </motion.div>
-            </div>
-            <div className="mx-auto mt-6 h-2 max-w-xs overflow-hidden rounded-full bg-white/55">
-              <motion.div style={{ scaleX: mobileProgress }} className="h-full origin-left rounded-full bg-[#1b9aaa]" />
-            </div>
-          </Container>
+      <div className="relative z-0 flex flex-col justify-end p-6 md:absolute md:inset-0 md:p-7 md:pl-28">
+        <span className="mb-4 w-fit rounded-full border border-[#ffb17a]/70 bg-white/42 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#1b5866]">
+          {String(index + 1).padStart(2, "0")} / {String(featuredProducts.length).padStart(2, "0")}
+        </span>
+        <h3 className="font-display text-3xl font-black leading-tight text-[#2d150d] md:text-[34px]">{product.name}</h3>
+        <p className="mt-4 text-sm leading-7 text-[#62483d] md:text-base">{product.description}</p>
+        <a
+          href="#contact"
+          className="mt-6 inline-flex min-h-11 w-fit items-center justify-center rounded-2xl bg-[#ff5a0a] px-5 text-sm font-extrabold text-white shadow-[0_18px_36px_rgba(255,90,10,0.2)] transition hover:bg-[#e64d00]"
+        >
+          Ask for Details
+        </a>
+      </div>
+      <div className="featured-product-front pointer-events-none absolute inset-0 z-10 hidden overflow-hidden transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] md:block">
+        <ProductThumb sheet={product.sheet} alt={product.alt} className="h-full w-full" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(45,21,13,0.5))]" />
+        <div className="pointer-events-none absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3 text-white">
+          <h4 className="font-display text-2xl font-black leading-tight drop-shadow-md">{product.name}</h4>
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/78 text-[#2d150d] backdrop-blur">
+            <Icon name="arrow" className="h-5 w-5" />
+          </span>
         </div>
       </div>
-    </section>
+    </article>
   );
 }
 
@@ -724,7 +664,7 @@ function ContactItem({ icon, title, text }: { icon: IconName; title: string; tex
 
 function Footer() {
   return (
-    <footer className="border-t border-[#ead7bf] bg-[#fff1df] pt-12">
+    <footer className="border-t border-[#ead7bf]/70 bg-transparent pt-12">
       <Container>
         <div className="grid gap-10 pb-10 md:grid-cols-[1.2fr_0.8fr_1fr_1fr]">
           <div>
@@ -741,7 +681,7 @@ function Footer() {
           </div>
         </div>
       </Container>
-      <div className="bg-[#ff5a0a] py-4 text-center text-xs font-bold text-white">
+      <div className="border-t border-[#ffb17a]/60 bg-transparent py-4 text-center text-xs font-bold text-[#a64100]">
         (c) 2026 {brand.name}. Made for modern business packaging showcases.
       </div>
     </footer>
@@ -767,7 +707,7 @@ function FooterColumn({ title, items }: { title: string; items: { label: string;
 
 export default function BirdPacksSite() {
   return (
-    <main className="min-h-screen overflow-x-clip bg-[#fff8ef] text-[#2d150d]">
+    <main className="min-h-screen overflow-x-clip bg-transparent text-[#2d150d]">
       <Header />
       <Hero />
       <ProductCategories />
