@@ -92,7 +92,7 @@ export function Card({
             backgroundSize: imageSize,
           }}
         />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,248,223,0.62),transparent_34%),linear-gradient(180deg,transparent,rgba(247,215,98,0.2))]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,250,232,0.68),transparent_34%),linear-gradient(180deg,transparent,rgba(255,232,154,0.16))]" />
       </div>
     </motion.article>
   );
@@ -118,7 +118,7 @@ const StackingCards = forwardRef<HTMLElement, StackingCardsProps>(({ id, title, 
         <div className="sticky top-0 z-10 flex h-screen items-center overflow-hidden py-4 sm:py-5">
           <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col px-5 sm:px-8 lg:px-10">
             <div className="mx-auto mb-5 max-w-4xl text-center sm:mb-7">
-              <p className="text-xs font-black uppercase tracking-[0.24em] text-[#315f4e]">BirdPacks range</p>
+              <p className="text-xs font-black uppercase tracking-[0.24em] text-[#315f4e]">Bird Pack range</p>
               <h2 className="font-display mt-3 text-4xl font-black leading-tight text-[#0d3b2e] sm:text-5xl">{title}</h2>
               {subtitle ? <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-[#315f4e] sm:mt-5 sm:text-lg sm:leading-8">{subtitle}</p> : null}
             </div>

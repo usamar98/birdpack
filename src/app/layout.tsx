@@ -3,9 +3,9 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://birdpacks.com"),
-  title: "BirdPacks | Premium Packaging Solutions",
+  title: "Bird Pack | Premium Packaging Solutions",
   description:
-    "BirdPacks showcases premium paper bags, cardboard boxes, food packaging, gift boxes, courier bags, bakery packaging, retail packaging, and custom printed packaging for modern businesses.",
+    "Bird Pack showcases premium paper bags, cardboard boxes, food packaging, gift boxes, courier bags, bakery packaging, retail packaging, and custom printed packaging for modern businesses.",
   keywords: [
     "packaging products",
     "custom packaging",
@@ -16,10 +16,10 @@ export const metadata: Metadata = {
     "courier bags",
     "bakery packaging",
     "retail packaging",
-    "BirdPacks",
+    "Bird Pack",
   ],
   openGraph: {
-    title: "BirdPacks",
+    title: "Bird Pack",
     description: "Premium Packaging Solutions for Modern Businesses",
     type: "website",
     images: ["/images/products/customprint.png"],
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#f2d875",
+  themeColor: "#fff1bd",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

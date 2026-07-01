@@ -7,7 +7,7 @@ import { motion, Variants } from "framer-motion";
 import StackingCards, { StackingCardProject } from "@/components/ui/stacking-card";
 
 const brand = {
-  name: "BirdPacks",
+  name: "Bird Pack",
   tagline: "Premium Packaging Solutions for Modern Businesses",
   email: "info@birdpacks.com",
   phone: "+923017987824",
@@ -45,56 +45,56 @@ const categories = [
     description: "Reusable kraft carry bags with sturdy handles and clean branding space for shops, events, and daily orders.",
     image: productImages.paperBag,
     alt: "Kraft paper shopping bag",
-    color: "rgba(255, 248, 223, 0.9)",
+    color: "rgba(255, 250, 232, 0.92)",
   },
   {
     name: "Cardboard boxes",
     description: "Strong corrugated packaging built for storage, shipping, and reliable product protection.",
     image: productImages.cardboardBox,
     alt: "Corrugated cardboard shipping box",
-    color: "rgba(246, 223, 121, 0.86)",
+    color: "rgba(255, 244, 199, 0.9)",
   },
   {
     name: "Food packaging",
     description: "Food-safe boxes for cafes, restaurants, takeaways, catering runs, and fresh presentation.",
     image: productImages.foodPackaging,
     alt: "Food packaging box",
-    color: "rgba(255, 243, 189, 0.88)",
+    color: "rgba(255, 247, 213, 0.92)",
   },
   {
     name: "Gift boxes",
     description: "Premium presentation boxes that make gifts, retail sets, and campaign packs feel finished.",
     image: productImages.giftBox,
     alt: "Gift box with orange ribbon",
-    color: "rgba(234, 197, 81, 0.84)",
+    color: "rgba(255, 238, 177, 0.9)",
   },
   {
     name: "Custom printed packaging",
     description: "Branded packaging layouts with print-ready surfaces, color accents, and tailored finishing.",
     image: productImages.customPrinted,
     alt: "Custom printed cardboard packaging",
-    color: "rgba(255, 248, 223, 0.86)",
+    color: "rgba(255, 250, 232, 0.9)",
   },
   {
     name: "Courier / shipping bags",
     description: "Lightweight mailer bags for courier dispatch, online orders, and secure delivery workflows.",
     image: productImages.courierBag,
     alt: "Courier mailer bag",
-    color: "rgba(232, 207, 118, 0.86)",
+    color: "rgba(255, 241, 190, 0.9)",
   },
   {
     name: "Bakery packaging",
     description: "Boxes and trays for cupcakes, pastries, and bakery items that need a polished shelf look.",
     image: productImages.bakeryBox,
     alt: "Bakery cupcake packaging",
-    color: "rgba(255, 243, 189, 0.9)",
+    color: "rgba(255, 247, 213, 0.92)",
   },
   {
     name: "Retail packaging",
     description: "Retail-ready bags and packs that help products stand out while staying practical to carry.",
     image: productImages.retailPackaging,
     alt: "Orange retail paper bag",
-    color: "rgba(246, 223, 121, 0.88)",
+    color: "rgba(255, 244, 199, 0.9)",
   },
 ] as const;
 
@@ -355,13 +355,13 @@ function ButtonLink({ href, children, variant = "primary" }: { href: string; chi
 
 function Logo() {
   return (
-    <a href="#top" className="group inline-flex items-center gap-3" aria-label={`${brand.name} home`}>
-      <span className="grid h-12 w-20 place-items-center">
+    <a href="#top" className="group inline-flex items-center gap-2.5" aria-label={`${brand.name} home`}>
+      <span className="grid h-10 w-14 place-items-center sm:h-11 sm:w-16">
         <Image src={brandAssets.logo} alt="" width={120} height={66} unoptimized className="h-full w-full object-contain object-center" />
       </span>
       <span className="leading-none">
-        <span className="block text-2xl font-black text-[#0d3b2e]">{brand.name}</span>
-        <span className="block pl-1 text-xs font-bold uppercase tracking-[0.18em] text-[#315f4e]">Packaging</span>
+        <span className="block text-xl font-black text-[#0d3b2e] sm:text-2xl">{brand.name}</span>
+        <span className="block pl-0.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[#315f4e] sm:text-xs">Packaging</span>
       </span>
     </a>
   );
@@ -409,13 +409,13 @@ function Hero() {
     <section id="top" className="relative isolate overflow-hidden">
       <Image
         src={brandAssets.hero}
-        alt="Custom printed BirdPacks packaging displayed in a product showcase"
+        alt="Custom printed Bird Pack packaging displayed in a product showcase"
         fill
         priority
         sizes="100vw"
         className="absolute inset-0 -z-20 object-cover object-center"
       />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(249,232,151,0.92)_0%,rgba(255,248,223,0.76)_39%,rgba(242,216,117,0.3)_70%,rgba(242,216,117,0.08)_100%)]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(255,232,154,0.9)_0%,rgba(255,250,232,0.76)_39%,rgba(255,241,189,0.28)_70%,rgba(255,241,189,0.08)_100%)]" />
       <Container className="flex min-h-[620px] items-center py-16 sm:py-20 lg:min-h-[680px]">
         <div className="relative z-10 w-full max-w-3xl">
           <h1 className="font-display max-w-[700px] text-[42px] font-black leading-[1] text-[#0d3b2e] drop-shadow-[0_2px_12px_rgba(255,248,223,0.58)] sm:text-[56px] lg:text-[68px]">
@@ -706,9 +706,9 @@ function FooterColumn({ title, items }: { title: string; items: { label: string;
   );
 }
 
-export default function BirdPacksSite() {
+export default function BirdPackSite() {
   return (
-    <main className="min-h-screen overflow-x-clip bg-[#f2d875] text-[#0d3b2e]">
+    <main className="min-h-screen overflow-x-clip bg-[#fff1bd] text-[#0d3b2e]">
       <Header />
       <Hero />
       <ProductCategories />
