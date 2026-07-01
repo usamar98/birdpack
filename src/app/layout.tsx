@@ -18,15 +18,11 @@ export const metadata: Metadata = {
     "retail packaging",
     "BirdPacks",
   ],
-  icons: {
-    icon: [{ url: "/bp-logo.svg", type: "image/svg+xml" }],
-    shortcut: "/bp-logo.svg",
-  },
   openGraph: {
     title: "BirdPacks",
     description: "Premium Packaging Solutions for Modern Businesses",
     type: "website",
-    images: ["/images/birdpack-hero.png"],
+    images: ["/images/products/customprint.png"],
   },
   robots: {
     index: true,
@@ -37,7 +33,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#ff5a0a",
+  themeColor: "#f2d875",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

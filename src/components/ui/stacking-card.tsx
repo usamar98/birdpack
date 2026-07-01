@@ -46,7 +46,7 @@ export function Card({
   const scale = useTransform(progress, [enterEnd, 1], [1, 1 - (total - i - 1) * 0.022]);
   const opacity = useTransform(progress, [Math.max(0, enterStart - 0.04), enterStart], i === 0 ? [1, 1] : [0.75, 1]);
   const shadowOpacity = useTransform(progress, [enterEnd, stackEnd], [0.14, 0.22]);
-  const boxShadow = useTransform(shadowOpacity, (value) => `0 34px 100px rgba(51,22,0,${value})`);
+  const boxShadow = useTransform(shadowOpacity, (value) => `0 34px 100px rgba(13,59,46,${value})`);
 
   return (
     <motion.article
@@ -64,16 +64,16 @@ export function Card({
         "min-h-[500px] gap-5 lg:h-[430px] lg:min-h-0 lg:grid-cols-[0.42fr_0.58fr] lg:p-8",
       )}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.72),rgba(255,255,255,0.18)_55%,rgba(27,154,170,0.1))]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,248,223,0.78),rgba(255,248,223,0.2)_55%,rgba(13,59,46,0.1))]" />
       <div className="relative z-10 flex flex-col justify-center">
-        <span className="mb-4 w-fit rounded-full border border-[#ffb17a]/70 bg-white/45 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#1b5866] sm:mb-5">
+        <span className="mb-4 w-fit rounded-full border border-[#0d3b2e]/35 bg-[#fff8df]/55 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#315f4e] sm:mb-5">
           {eyebrow ?? String(i + 1).padStart(2, "0")}
         </span>
-        <h3 className="font-display text-3xl font-black leading-tight text-[#2d150d] sm:text-5xl">{title}</h3>
-        <p className="mt-4 max-w-md text-base leading-7 text-[#61483d] sm:mt-5 sm:text-lg sm:leading-8">{description}</p>
+        <h3 className="font-display text-3xl font-black leading-tight text-[#0d3b2e] sm:text-5xl">{title}</h3>
+        <p className="mt-4 max-w-md text-base leading-7 text-[#315f4e] sm:mt-5 sm:text-lg sm:leading-8">{description}</p>
         <a
           href={ctaHref}
-          className="mt-5 inline-flex min-h-12 w-fit items-center justify-center gap-3 rounded-2xl border border-[#ffb17a]/70 bg-white/56 px-6 text-sm font-extrabold text-[#2d150d] shadow-[0_18px_36px_rgba(255,90,10,0.12)] transition hover:border-[#ff5a0a] hover:bg-white sm:mt-7"
+          className="mt-5 inline-flex min-h-12 w-fit items-center justify-center gap-3 rounded-2xl border border-[#0d3b2e]/45 bg-[#0d3b2e] px-6 text-sm font-extrabold text-[#fff8df] shadow-[0_18px_36px_rgba(13,59,46,0.16)] transition hover:bg-[#082f24] sm:mt-7"
         >
           See more
           <span aria-hidden="true">-&gt;</span>
@@ -92,7 +92,7 @@ export function Card({
             backgroundSize: imageSize,
           }}
         />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.6),transparent_34%),linear-gradient(180deg,transparent,rgba(255,248,239,0.2))]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,248,223,0.62),transparent_34%),linear-gradient(180deg,transparent,rgba(247,215,98,0.2))]" />
       </div>
     </motion.article>
   );
@@ -118,9 +118,9 @@ const StackingCards = forwardRef<HTMLElement, StackingCardsProps>(({ id, title, 
         <div className="sticky top-0 z-10 flex h-screen items-center overflow-hidden py-4 sm:py-5">
           <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col px-5 sm:px-8 lg:px-10">
             <div className="mx-auto mb-5 max-w-4xl text-center sm:mb-7">
-              <p className="text-xs font-black uppercase tracking-[0.24em] text-[#1b5866]">BirdPacks range</p>
-              <h2 className="font-display mt-3 text-4xl font-black leading-tight text-[#2d150d] sm:text-5xl">{title}</h2>
-              {subtitle ? <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-[#70574c] sm:mt-5 sm:text-lg sm:leading-8">{subtitle}</p> : null}
+              <p className="text-xs font-black uppercase tracking-[0.24em] text-[#315f4e]">BirdPacks range</p>
+              <h2 className="font-display mt-3 text-4xl font-black leading-tight text-[#0d3b2e] sm:text-5xl">{title}</h2>
+              {subtitle ? <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-[#315f4e] sm:mt-5 sm:text-lg sm:leading-8">{subtitle}</p> : null}
             </div>
             <div className="relative mx-auto h-[500px] w-full max-w-6xl sm:h-[540px] lg:h-[450px]">
               {projects.map((project, i) => (

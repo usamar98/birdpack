@@ -23,19 +23,20 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
+const brandAssets = {
+  logo: "/images/products/logo.png",
+  hero: "/images/products/customprint.png",
+} as const;
+
 const productImages = {
-  paperBag: "/images/products/paper-bag.png",
-  cardboardBox: "/images/products/cardboard-box.png",
-  foodPackaging: "/images/products/food-packaging.png",
-  giftBox: "/images/products/gift-box.png",
-  customPrinted: "/images/products/custom-printed.png",
-  courierBag: "/images/products/courier-bag.png",
-  bakeryBox: "/images/products/bakery-box.png",
-  retailBag: "/images/products/retail-bag.png",
-  luxuryBox: "/images/products/luxury-box.png",
-  mailerBox: "/images/products/mailer-box.png",
-  pastryBox: "/images/products/pastry-box.png",
-  packagingSet: "/images/products/packaging-set.png",
+  paperBag: "/images/products/paperbags.png",
+  cardboardBox: "/images/products/cardboards.png",
+  foodPackaging: "/images/products/foodpacking.png",
+  giftBox: "/images/products/giftbox.png",
+  customPrinted: "/images/products/customprint.png",
+  courierBag: "/images/products/couriershippingbags.png",
+  bakeryBox: "/images/products/bakerypackaging.png",
+  retailPackaging: "/images/products/retailpackaging.png",
 } as const;
 
 const categories = [
@@ -44,56 +45,56 @@ const categories = [
     description: "Reusable kraft carry bags with sturdy handles and clean branding space for shops, events, and daily orders.",
     image: productImages.paperBag,
     alt: "Kraft paper shopping bag",
-    color: "rgba(255, 241, 223, 0.78)",
+    color: "rgba(255, 248, 223, 0.9)",
   },
   {
     name: "Cardboard boxes",
     description: "Strong corrugated packaging built for storage, shipping, and reliable product protection.",
     image: productImages.cardboardBox,
     alt: "Corrugated cardboard shipping box",
-    color: "rgba(232, 249, 250, 0.74)",
+    color: "rgba(246, 223, 121, 0.86)",
   },
   {
     name: "Food packaging",
     description: "Food-safe boxes for cafes, restaurants, takeaways, catering runs, and fresh presentation.",
     image: productImages.foodPackaging,
     alt: "Food packaging box",
-    color: "rgba(255, 247, 236, 0.78)",
+    color: "rgba(255, 243, 189, 0.88)",
   },
   {
     name: "Gift boxes",
     description: "Premium presentation boxes that make gifts, retail sets, and campaign packs feel finished.",
     image: productImages.giftBox,
     alt: "Gift box with orange ribbon",
-    color: "rgba(255, 232, 218, 0.76)",
+    color: "rgba(234, 197, 81, 0.84)",
   },
   {
     name: "Custom printed packaging",
     description: "Branded packaging layouts with print-ready surfaces, color accents, and tailored finishing.",
     image: productImages.customPrinted,
     alt: "Custom printed cardboard packaging",
-    color: "rgba(255, 255, 255, 0.62)",
+    color: "rgba(255, 248, 223, 0.86)",
   },
   {
     name: "Courier / shipping bags",
     description: "Lightweight mailer bags for courier dispatch, online orders, and secure delivery workflows.",
     image: productImages.courierBag,
     alt: "Courier mailer bag",
-    color: "rgba(229, 250, 247, 0.76)",
+    color: "rgba(232, 207, 118, 0.86)",
   },
   {
     name: "Bakery packaging",
     description: "Boxes and trays for cupcakes, pastries, and bakery items that need a polished shelf look.",
     image: productImages.bakeryBox,
     alt: "Bakery cupcake packaging",
-    color: "rgba(255, 238, 206, 0.78)",
+    color: "rgba(255, 243, 189, 0.9)",
   },
   {
     name: "Retail packaging",
     description: "Retail-ready bags and packs that help products stand out while staying practical to carry.",
-    image: productImages.retailBag,
+    image: productImages.retailPackaging,
     alt: "Orange retail paper bag",
-    color: "rgba(255, 225, 208, 0.76)",
+    color: "rgba(246, 223, 121, 0.88)",
   },
 ] as const;
 
@@ -140,6 +141,12 @@ const featuredProducts = [
     image: productImages.courierBag,
     alt: "Courier mailer bag product",
   },
+  {
+    name: "Retail Packaging",
+    description: "Shelf-ready packaging for shops, product sets, and customer handover.",
+    image: productImages.retailPackaging,
+    alt: "Retail packaging product",
+  },
 ] as const;
 
 const benefits = [
@@ -178,11 +185,7 @@ const galleryItems = [
   { image: productImages.customPrinted, alt: "Custom printed packaging gallery image" },
   { image: productImages.courierBag, alt: "Courier bag gallery image" },
   { image: productImages.bakeryBox, alt: "Bakery packaging gallery image" },
-  { image: productImages.retailBag, alt: "Retail bag gallery image" },
-  { image: productImages.luxuryBox, alt: "Luxury box gallery image" },
-  { image: productImages.mailerBox, alt: "Mailer box gallery image" },
-  { image: productImages.pastryBox, alt: "Bakery pastry box gallery image" },
-  { image: productImages.packagingSet, alt: "Retail packaging set gallery image" },
+  { image: productImages.retailPackaging, alt: "Retail packaging gallery image" },
 ] as const;
 
 type IconName = (typeof benefits)[number]["icon"] | "pin" | "mail" | "phone" | "whatsapp" | "arrow" | "box";
@@ -323,18 +326,18 @@ function Section({ id, children, className = "" }: { id?: string; children: Reac
 function SectionHeading({ title, subtitle, compact = false }: { title: string; subtitle?: string; compact?: boolean }) {
   return (
     <div className={`mx-auto max-w-3xl text-center ${compact ? "mb-6 sm:mb-8" : "mb-10"}`}>
-      <h2 className="font-display text-3xl font-bold leading-tight text-[#2d150d] sm:text-4xl lg:text-5xl">{title}</h2>
-      <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-[#ff5a0a]" />
-      {subtitle ? <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[#70574c] sm:text-lg">{subtitle}</p> : null}
+      <h2 className="font-display text-3xl font-bold leading-tight text-[#0d3b2e] sm:text-4xl lg:text-5xl">{title}</h2>
+      <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-[#0d3b2e]" />
+      {subtitle ? <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[#315f4e] sm:text-lg">{subtitle}</p> : null}
     </div>
   );
 }
 
 function ButtonLink({ href, children, variant = "primary" }: { href: string; children: ReactNode; variant?: "primary" | "secondary" | "light" }) {
   const styles = {
-    primary: "bg-[#ff5a0a] text-white shadow-[0_18px_36px_rgba(255,90,10,0.22)] hover:bg-[#e64d00]",
-    secondary: "border border-[#ff8c4d] bg-white/70 text-[#f05505] hover:border-[#ff5a0a] hover:bg-white",
-    light: "bg-white text-[#f05505] shadow-[0_16px_34px_rgba(91,35,0,0.14)] hover:bg-[#fff7ed]",
+    primary: "bg-[#0d3b2e] text-[#fff8df] shadow-[0_18px_36px_rgba(13,59,46,0.22)] hover:bg-[#082f24]",
+    secondary: "border border-[#0d3b2e]/45 bg-[#fff8df]/80 text-[#0d3b2e] hover:border-[#0d3b2e] hover:bg-[#fff8df]",
+    light: "bg-[#fff8df] text-[#0d3b2e] shadow-[0_16px_34px_rgba(13,59,46,0.16)] hover:bg-[#f7d762]",
   };
 
   return (
@@ -353,12 +356,12 @@ function ButtonLink({ href, children, variant = "primary" }: { href: string; chi
 function Logo() {
   return (
     <a href="#top" className="group inline-flex items-center gap-3" aria-label={`${brand.name} home`}>
-      <span className="grid h-11 w-11 place-items-center rounded-2xl border border-[#ffb77f]/70 bg-white/35 shadow-[0_18px_38px_rgba(255,90,10,0.16)] backdrop-blur">
-        <Image src="/bp-logo.svg" alt="" width={36} height={36} className="h-9 w-9" />
+      <span className="grid h-12 w-20 place-items-center">
+        <Image src={brandAssets.logo} alt="" width={120} height={66} unoptimized className="h-full w-full object-contain object-center" />
       </span>
       <span className="leading-none">
-        <span className="block text-2xl font-black text-[#ff5a0a]">{brand.name}</span>
-        <span className="block pl-1 text-xs font-bold uppercase tracking-[0.18em] text-[#1b5866]">Packaging</span>
+        <span className="block text-2xl font-black text-[#0d3b2e]">{brand.name}</span>
+        <span className="block pl-1 text-xs font-bold uppercase tracking-[0.18em] text-[#315f4e]">Packaging</span>
       </span>
     </a>
   );
@@ -380,12 +383,12 @@ function ProductThumb({ image, alt, className = "" }: { image: string; alt: stri
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-[#ead8c5]/60 bg-white/42 backdrop-blur-xl">
+    <header className="absolute inset-x-0 top-0 z-50 bg-transparent">
       <Container className="flex h-16 items-center justify-between">
         <Logo />
         <nav aria-label="Primary navigation" className="hidden items-center gap-9 lg:flex">
           {navItems.map((item) => (
-            <a key={item.href} href={item.href} className="text-sm font-bold text-[#3a2118] transition hover:text-[#ff5a0a]">
+            <a key={item.href} href={item.href} className="text-sm font-bold text-[#0d3b2e] transition hover:text-[#082f24]">
               {item.label}
             </a>
           ))}
@@ -393,7 +396,7 @@ function Header() {
         <div className="hidden sm:block">
           <ButtonLink href="#contact">Contact Us</ButtonLink>
         </div>
-        <a href="#contact" className="rounded-full border border-[#f2c5a4] px-4 py-2 text-sm font-bold text-[#f05505] sm:hidden">
+        <a href="#contact" className="rounded-full border border-[#0d3b2e]/45 bg-[#fff8df]/35 px-4 py-2 text-sm font-bold text-[#0d3b2e] backdrop-blur-sm sm:hidden">
           Contact
         </a>
       </Container>
@@ -405,24 +408,24 @@ function Hero() {
   return (
     <section id="top" className="relative isolate overflow-hidden">
       <Image
-        src="/images/birdpack-hero.png"
-        alt="BirdPack packaging products displayed as bags, boxes, mailers, and gift packaging"
+        src={brandAssets.hero}
+        alt="Custom printed BirdPacks packaging displayed in a product showcase"
         fill
         priority
         sizes="100vw"
-        className="absolute inset-0 -z-20 object-cover object-[62%_center]"
+        className="absolute inset-0 -z-20 object-cover object-center"
       />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.78)_38%,rgba(255,255,255,0.26)_68%,rgba(255,255,255,0.06)_100%)]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(249,232,151,0.92)_0%,rgba(255,248,223,0.76)_39%,rgba(242,216,117,0.3)_70%,rgba(242,216,117,0.08)_100%)]" />
       <Container className="flex min-h-[620px] items-center py-16 sm:py-20 lg:min-h-[680px]">
         <div className="relative z-10 w-full max-w-3xl">
-          <h1 className="font-display max-w-[700px] text-[42px] font-black leading-[1] text-[#2d150d] drop-shadow-[0_2px_12px_rgba(255,255,255,0.55)] sm:text-[56px] lg:text-[68px]">
+          <h1 className="font-display max-w-[700px] text-[42px] font-black leading-[1] text-[#0d3b2e] drop-shadow-[0_2px_12px_rgba(255,248,223,0.58)] sm:text-[56px] lg:text-[68px]">
             <span className="block lg:whitespace-nowrap">High-Quality</span>
             <span className="block sm:hidden">Packaging</span>
             <span className="block sm:hidden">Products</span>
             <span className="hidden sm:block lg:whitespace-nowrap">Packaging Products</span>
             <span className="block lg:whitespace-nowrap">for Modern Businesses</span>
           </h1>
-          <p className="mt-6 max-w-[320px] text-base leading-7 text-[#70574c] sm:max-w-xl sm:text-xl sm:leading-8">
+          <p className="mt-6 max-w-[320px] text-base leading-7 text-[#315f4e] sm:max-w-xl sm:text-xl sm:leading-8">
             {brand.tagline}
           </p>
           <div className="mt-9 flex max-w-[350px] flex-col gap-4 sm:max-w-none sm:flex-row">
@@ -466,36 +469,36 @@ function FeaturedProducts() {
 
 function FeaturedProductCard({ product, index }: { product: (typeof featuredProducts)[number]; index: number }) {
   return (
-    <article className="featured-product-card group relative isolate overflow-hidden rounded-[30px] border border-white/58 bg-white/24 shadow-[0_26px_70px_rgba(51,22,0,0.12)] backdrop-blur-xl md:min-h-[470px]">
+    <article className="featured-product-card group relative isolate overflow-hidden rounded-[30px] border border-[#fff8df]/68 bg-[#fff8df]/28 shadow-[0_26px_70px_rgba(13,59,46,0.13)] backdrop-blur-xl md:min-h-[470px]">
       <div className="relative z-10 h-[270px] overflow-hidden md:hidden">
         <ProductThumb image={product.image} alt={product.alt} className="h-full w-full" />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(45,21,13,0.5))]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(13,59,46,0.58))]" />
         <div className="pointer-events-none absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3 text-white">
           <h4 className="font-display text-2xl font-black leading-tight drop-shadow-md">{product.name}</h4>
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/78 text-[#2d150d] backdrop-blur">
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#fff8df]/84 text-[#0d3b2e] backdrop-blur">
             <Icon name="arrow" className="h-5 w-5" />
           </span>
         </div>
       </div>
       <div className="relative z-0 flex flex-col justify-end p-6 md:absolute md:inset-0 md:p-7 md:pl-28">
-        <span className="mb-4 w-fit rounded-full border border-[#ffb17a]/70 bg-white/42 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#1b5866]">
+        <span className="mb-4 w-fit rounded-full border border-[#0d3b2e]/35 bg-[#fff8df]/52 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#315f4e]">
           {String(index + 1).padStart(2, "0")} / {String(featuredProducts.length).padStart(2, "0")}
         </span>
-        <h3 className="font-display text-3xl font-black leading-tight text-[#2d150d] md:text-[34px]">{product.name}</h3>
-        <p className="mt-4 text-sm leading-7 text-[#62483d] md:text-base">{product.description}</p>
+        <h3 className="font-display text-3xl font-black leading-tight text-[#0d3b2e] md:text-[34px]">{product.name}</h3>
+        <p className="mt-4 text-sm leading-7 text-[#315f4e] md:text-base">{product.description}</p>
         <a
           href="#contact"
-          className="mt-6 inline-flex min-h-11 w-fit items-center justify-center rounded-2xl bg-[#ff5a0a] px-5 text-sm font-extrabold text-white shadow-[0_18px_36px_rgba(255,90,10,0.2)] transition hover:bg-[#e64d00]"
+          className="mt-6 inline-flex min-h-11 w-fit items-center justify-center rounded-2xl bg-[#0d3b2e] px-5 text-sm font-extrabold text-[#fff8df] shadow-[0_18px_36px_rgba(13,59,46,0.22)] transition hover:bg-[#082f24]"
         >
           Ask for Details
         </a>
       </div>
       <div className="featured-product-front pointer-events-none absolute inset-0 z-10 hidden overflow-hidden transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] md:block">
         <ProductThumb image={product.image} alt={product.alt} className="h-full w-full" />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(45,21,13,0.5))]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(13,59,46,0.58))]" />
         <div className="pointer-events-none absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3 text-white">
           <h4 className="font-display text-2xl font-black leading-tight drop-shadow-md">{product.name}</h4>
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/78 text-[#2d150d] backdrop-blur">
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#fff8df]/84 text-[#0d3b2e] backdrop-blur">
             <Icon name="arrow" className="h-5 w-5" />
           </span>
         </div>
@@ -509,14 +512,14 @@ function WhyChooseUs() {
     <Section id="why-us" className="py-14 sm:py-20">
       <Container>
         <SectionHeading title={`Why Choose ${brand.name}?`} />
-        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-90px" }} className="grid overflow-hidden rounded-[28px] border border-[#edd9c3] bg-white/74 shadow-[0_24px_60px_rgba(77,34,0,0.07)] sm:grid-cols-2 lg:grid-cols-5">
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-90px" }} className="grid overflow-hidden rounded-[28px] border border-[#b88a20]/45 bg-[#fff8df]/78 shadow-[0_24px_60px_rgba(13,59,46,0.1)] sm:grid-cols-2 lg:grid-cols-5">
           {benefits.map((benefit) => (
-            <motion.article key={benefit.title} variants={reveal} className="border-b border-[#edd9c3] p-7 text-center last:border-b-0 sm:border-r lg:border-b-0 lg:last:border-r-0">
-              <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[#fff1e5] text-[#ff5a0a]">
+            <motion.article key={benefit.title} variants={reveal} className="border-b border-[#b88a20]/35 p-7 text-center last:border-b-0 sm:border-r lg:border-b-0 lg:last:border-r-0">
+              <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-[#0d3b2e] text-[#f7d762]">
                 <Icon name={benefit.icon} className="h-8 w-8" />
               </div>
-              <h3 className="mt-5 text-base font-black text-[#2d150d]">{benefit.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-[#725a4f]">{benefit.description}</p>
+              <h3 className="mt-5 text-base font-black text-[#0d3b2e]">{benefit.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-[#315f4e]">{benefit.description}</p>
             </motion.article>
           ))}
         </motion.div>
@@ -531,22 +534,22 @@ function CustomPackaging() {
   return (
     <Section id="custom" className="py-14 sm:py-20">
       <Container>
-        <div className="grid gap-6 rounded-[32px] border border-[#ead7bf] bg-white/82 p-4 shadow-[0_28px_70px_rgba(69,29,0,0.08)] lg:grid-cols-[0.95fr_1.15fr_0.95fr] lg:p-6">
-          <ProductThumb image={productImages.packagingSet} alt="Custom packaging set with orange and white boxes" className="min-h-[280px] rounded-[24px]" />
+        <div className="grid gap-6 rounded-[32px] border border-[#b88a20]/45 bg-[#fff8df]/82 p-4 shadow-[0_28px_70px_rgba(13,59,46,0.1)] lg:grid-cols-[0.95fr_1.15fr_0.95fr] lg:p-6">
+          <ProductThumb image={productImages.customPrinted} alt="Custom printed packaging set" className="min-h-[280px] rounded-[24px]" />
           <div className="flex flex-col justify-center px-3 py-5 lg:px-6">
-            <h2 className="font-display text-3xl font-bold leading-tight text-[#2d150d] sm:text-4xl">Custom Packaging Made for Your Brand</h2>
-            <p className="mt-5 text-base leading-8 text-[#70574c]">
+            <h2 className="font-display text-3xl font-bold leading-tight text-[#0d3b2e] sm:text-4xl">Custom Packaging Made for Your Brand</h2>
+            <p className="mt-5 text-base leading-8 text-[#315f4e]">
               Customers can request packaging in custom size, color, logo, and printing options. We help shape packaging that presents your products clearly and professionally.
             </p>
             <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {customOptions.map((option) => (
-                <div key={option} className="rounded-2xl border border-[#f1d3ba] bg-[#fff8f0] p-3 text-center text-xs font-extrabold text-[#563326]">
+                <div key={option} className="rounded-2xl border border-[#b88a20]/45 bg-[#f7d762]/35 p-3 text-center text-xs font-extrabold text-[#0d3b2e]">
                   {option}
                 </div>
               ))}
             </div>
           </div>
-          <div className="flex min-h-[280px] flex-col items-center justify-center rounded-[24px] bg-[#ff5a0a] p-7 text-center text-white shadow-[0_22px_55px_rgba(255,90,10,0.25)]">
+          <div className="flex min-h-[280px] flex-col items-center justify-center rounded-[24px] bg-[#0d3b2e] p-7 text-center text-[#fff8df] shadow-[0_22px_55px_rgba(13,59,46,0.28)]">
             <Icon name="box" className="h-14 w-14" />
             <h3 className="font-display mt-5 text-2xl font-bold leading-tight">Let&apos;s build packaging that represents your brand.</h3>
             <ButtonLink href="#contact" variant="light">Get Custom Packaging</ButtonLink>
@@ -564,7 +567,7 @@ function Gallery() {
         <SectionHeading title="Gallery" subtitle="A closer look at packaging styles for retail, food, gifting, courier, bakery, and custom printed product lines." />
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-90px" }} className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
           {galleryItems.map((item, index) => (
-            <motion.div key={`${item.alt}-${index}`} variants={reveal} whileHover={{ y: -7, scale: 1.015 }} className="overflow-hidden rounded-2xl border border-[#ead7bf] bg-white shadow-[0_18px_45px_rgba(69,29,0,0.07)]">
+            <motion.div key={`${item.alt}-${index}`} variants={reveal} whileHover={{ y: -7, scale: 1.015 }} className="overflow-hidden rounded-2xl border border-[#b88a20]/45 bg-[#fff8df] shadow-[0_18px_45px_rgba(13,59,46,0.1)]">
               <ProductThumb image={item.image} alt={item.alt} className="aspect-[4/3]" />
             </motion.div>
           ))}
@@ -587,41 +590,41 @@ function Contact() {
       <Container>
         <SectionHeading title="Get in Touch" subtitle={`Tell us what packaging you need and the ${brand.name} team will guide you with product details, custom options, and next steps.`} />
         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <motion.form onSubmit={handleSubmit} variants={reveal} className="rounded-[28px] border border-[#ead7bf] bg-white/86 p-6 shadow-[0_24px_60px_rgba(69,29,0,0.08)] sm:p-8">
+          <motion.form onSubmit={handleSubmit} variants={reveal} className="rounded-[28px] border border-[#b88a20]/45 bg-[#fff8df]/88 p-6 shadow-[0_24px_60px_rgba(13,59,46,0.1)] sm:p-8">
             <div className="grid gap-5 sm:grid-cols-2">
               <Field label="Name" placeholder="Your name" />
               <Field label="Phone" placeholder="Your phone number" />
             </div>
             <Field label="Email" placeholder="Your email address" type="email" className="mt-5" />
             <label className="mt-5 block">
-              <span className="text-sm font-extrabold text-[#3d2117]">Message</span>
+              <span className="text-sm font-extrabold text-[#0d3b2e]">Message</span>
               <textarea
                 required
                 rows={5}
                 placeholder="Write your message..."
-                className="mt-2 w-full resize-none rounded-2xl border border-[#ead7bf] bg-[#fffbf6] px-4 py-3 text-sm text-[#2d150d] outline-none transition placeholder:text-[#a18b7f] focus:border-[#ff8c4d] focus:ring-4 focus:ring-[#ff5a0a]/10"
+                className="mt-2 w-full resize-none rounded-2xl border border-[#b88a20]/45 bg-[#fff8df] px-4 py-3 text-sm text-[#0d3b2e] outline-none transition placeholder:text-[#668a7c] focus:border-[#0d3b2e] focus:ring-4 focus:ring-[#0d3b2e]/10"
               />
             </label>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <button type="submit" className="inline-flex min-h-12 items-center justify-center gap-3 rounded-[14px] bg-[#ff5a0a] px-6 py-3 text-sm font-bold text-white shadow-[0_18px_36px_rgba(255,90,10,0.22)] transition hover:bg-[#e64d00]">
+              <button type="submit" className="inline-flex min-h-12 items-center justify-center gap-3 rounded-[14px] bg-[#0d3b2e] px-6 py-3 text-sm font-bold text-[#fff8df] shadow-[0_18px_36px_rgba(13,59,46,0.22)] transition hover:bg-[#082f24]">
                 {submitted ? "Message Ready" : "Send Message"}
                 <Icon name="arrow" className="h-4 w-4" />
               </button>
-              <a href={brand.whatsapp} className="inline-flex min-h-12 items-center justify-center gap-3 rounded-[14px] border border-[#bfe6ca] bg-[#f5fff7] px-6 py-3 text-sm font-bold text-[#16833a] transition hover:bg-white">
+              <a href={brand.whatsapp} className="inline-flex min-h-12 items-center justify-center gap-3 rounded-[14px] border border-[#0d3b2e]/35 bg-[#f7d762]/35 px-6 py-3 text-sm font-bold text-[#0d3b2e] transition hover:bg-[#fff8df]">
                 <Icon name="whatsapp" className="h-5 w-5" />
                 Chat on WhatsApp
               </a>
             </div>
-            {submitted ? <p className="mt-4 rounded-2xl bg-[#fff1e5] px-4 py-3 text-sm font-bold text-[#a64100]">Thanks. Your inquiry is ready for the {brand.name} team.</p> : null}
+            {submitted ? <p className="mt-4 rounded-2xl bg-[#f7d762]/40 px-4 py-3 text-sm font-bold text-[#0d3b2e]">Thanks. Your inquiry is ready for the {brand.name} team.</p> : null}
           </motion.form>
 
-          <motion.aside variants={reveal} className="grid gap-5 rounded-[28px] border border-[#ead7bf] bg-white/86 p-6 shadow-[0_24px_60px_rgba(69,29,0,0.08)] sm:p-8">
+          <motion.aside variants={reveal} className="grid gap-5 rounded-[28px] border border-[#b88a20]/45 bg-[#fff8df]/88 p-6 shadow-[0_24px_60px_rgba(13,59,46,0.1)] sm:p-8">
             <ContactItem icon="pin" title="Business Location" text={brand.location} />
             <ContactItem icon="mail" title="Email" text={brand.email} />
             <ContactItem icon="phone" title="Phone" text={brand.phone} />
-            <div className="relative mt-2 min-h-56 overflow-hidden rounded-3xl border border-[#f0d7c1] bg-[#fff4e7]">
-              <div className="absolute inset-0 opacity-65 [background-image:linear-gradient(30deg,rgba(101,70,52,0.12)_1px,transparent_1px),linear-gradient(120deg,rgba(101,70,52,0.12)_1px,transparent_1px)] [background-size:32px_32px]" />
-              <div className="absolute left-1/2 top-1/2 grid h-20 w-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-[#ff5a0a] text-white shadow-[0_20px_45px_rgba(255,90,10,0.28)]">
+            <div className="relative mt-2 min-h-56 overflow-hidden rounded-3xl border border-[#b88a20]/45 bg-[#f7d762]/28">
+              <div className="absolute inset-0 opacity-65 [background-image:linear-gradient(30deg,rgba(13,59,46,0.12)_1px,transparent_1px),linear-gradient(120deg,rgba(13,59,46,0.12)_1px,transparent_1px)] [background-size:32px_32px]" />
+              <div className="absolute left-1/2 top-1/2 grid h-20 w-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-[#0d3b2e] text-[#fff8df] shadow-[0_20px_45px_rgba(13,59,46,0.28)]">
                 <Icon name="pin" className="h-10 w-10" />
               </div>
             </div>
@@ -635,12 +638,12 @@ function Contact() {
 function Field({ label, placeholder, type = "text", className = "" }: { label: string; placeholder: string; type?: string; className?: string }) {
   return (
     <label className={`block ${className}`}>
-      <span className="text-sm font-extrabold text-[#3d2117]">{label}</span>
+      <span className="text-sm font-extrabold text-[#0d3b2e]">{label}</span>
       <input
         required
         type={type}
         placeholder={placeholder}
-        className="mt-2 h-12 w-full rounded-2xl border border-[#ead7bf] bg-[#fffbf6] px-4 text-sm text-[#2d150d] outline-none transition placeholder:text-[#a18b7f] focus:border-[#ff8c4d] focus:ring-4 focus:ring-[#ff5a0a]/10"
+        className="mt-2 h-12 w-full rounded-2xl border border-[#b88a20]/45 bg-[#fff8df] px-4 text-sm text-[#0d3b2e] outline-none transition placeholder:text-[#668a7c] focus:border-[#0d3b2e] focus:ring-4 focus:ring-[#0d3b2e]/10"
       />
     </label>
   );
@@ -649,12 +652,12 @@ function Field({ label, placeholder, type = "text", className = "" }: { label: s
 function ContactItem({ icon, title, text }: { icon: IconName; title: string; text: string }) {
   return (
     <div className="flex gap-4">
-      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#fff1e5] text-[#ff5a0a]">
+      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#0d3b2e] text-[#f7d762]">
         <Icon name={icon} className="h-6 w-6" />
       </div>
       <div>
-        <h3 className="font-black text-[#2d150d]">{title}</h3>
-        <p className="mt-1 text-sm leading-6 text-[#70574c]">{text}</p>
+        <h3 className="font-black text-[#0d3b2e]">{title}</h3>
+        <p className="mt-1 text-sm leading-6 text-[#315f4e]">{text}</p>
       </div>
     </div>
   );
@@ -662,24 +665,24 @@ function ContactItem({ icon, title, text }: { icon: IconName; title: string; tex
 
 function Footer() {
   return (
-    <footer className="border-t border-[#ead7bf]/70 bg-transparent pt-12">
+    <footer className="border-t border-[#b88a20]/55 bg-transparent pt-12">
       <Container>
         <div className="grid gap-10 pb-10 md:grid-cols-[1.2fr_0.8fr_1fr_1fr]">
           <div>
             <Logo />
-            <p className="mt-5 max-w-sm text-sm leading-7 text-[#70574c]">High-quality packaging products for businesses that need polished presentation, reliable materials, and clear support.</p>
+            <p className="mt-5 max-w-sm text-sm leading-7 text-[#315f4e]">High-quality packaging products for businesses that need polished presentation, reliable materials, and clear support.</p>
           </div>
           <FooterColumn title="Quick Links" items={navItems.map((item) => ({ label: item.label, href: item.href }))} />
           <FooterColumn title="Product Categories" items={categories.slice(0, 6).map((item) => ({ label: item.name, href: "#products" }))} />
           <div>
-            <h3 className="font-black text-[#2d150d]">Contact Info</h3>
-            <p className="mt-4 text-sm leading-7 text-[#70574c]">{brand.location}</p>
-            <p className="mt-3 text-sm font-bold text-[#2d150d]">{brand.email}</p>
-            <p className="mt-2 text-sm font-bold text-[#2d150d]">{brand.phone}</p>
+            <h3 className="font-black text-[#0d3b2e]">Contact Info</h3>
+            <p className="mt-4 text-sm leading-7 text-[#315f4e]">{brand.location}</p>
+            <p className="mt-3 text-sm font-bold text-[#0d3b2e]">{brand.email}</p>
+            <p className="mt-2 text-sm font-bold text-[#0d3b2e]">{brand.phone}</p>
           </div>
         </div>
       </Container>
-      <div className="border-t border-[#ffb17a]/60 bg-transparent py-4 text-center text-xs font-bold text-[#a64100]">
+      <div className="border-t border-[#b88a20]/60 bg-transparent py-4 text-center text-xs font-bold text-[#0d3b2e]">
         (c) 2026 {brand.name}. Made for modern business packaging showcases.
       </div>
     </footer>
@@ -689,11 +692,11 @@ function Footer() {
 function FooterColumn({ title, items }: { title: string; items: { label: string; href: string }[] }) {
   return (
     <div>
-      <h3 className="font-black text-[#2d150d]">{title}</h3>
+      <h3 className="font-black text-[#0d3b2e]">{title}</h3>
       <ul className="mt-4 space-y-2">
         {items.map((item) => (
           <li key={`${title}-${item.label}`}>
-            <a href={item.href} className="text-sm font-semibold text-[#70574c] transition hover:text-[#ff5a0a]">
+            <a href={item.href} className="text-sm font-semibold text-[#315f4e] transition hover:text-[#0d3b2e]">
               {item.label}
             </a>
           </li>
@@ -705,7 +708,7 @@ function FooterColumn({ title, items }: { title: string; items: { label: string;
 
 export default function BirdPacksSite() {
   return (
-    <main className="min-h-screen overflow-x-clip bg-transparent text-[#2d150d]">
+    <main className="min-h-screen overflow-x-clip bg-[#f2d875] text-[#0d3b2e]">
       <Header />
       <Hero />
       <ProductCategories />

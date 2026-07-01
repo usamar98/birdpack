@@ -1,8 +1,16 @@
 ﻿@import "tailwindcss";
 
 :root {
-  --background: transparent;
-  --foreground: #2d150d;
+  --background: #f2d875;
+  --foreground: #0d3b2e;
+  --dark-green: #0d3b2e;
+  --dark-green-hover: #082f24;
+  --gold: #f2d875;
+  --bright-gold: #f9e897;
+  --soft-gold: #fff4c7;
+  --panel-gold: #fff8df;
+  --gold-border: #b88a20;
+  --muted-green: #315f4e;
   --font-display: Georgia, "Times New Roman", serif;
   --font-body: "Segoe UI", Arial, Helvetica, sans-serif;
 }
@@ -20,12 +28,14 @@
 
 html {
   scroll-behavior: smooth;
-  background: transparent;
+  background: var(--background);
 }
 
 body {
   min-height: 100vh;
-  background: transparent;
+  background:
+    linear-gradient(180deg, rgba(247, 215, 98, 0.28), transparent 34%),
+    var(--background);
   color: var(--foreground);
   font-family: var(--font-body);
 }
@@ -43,8 +53,8 @@ a {
 }
 
 ::selection {
-  background: #ffb17a;
-  color: #2d150d;
+  background: var(--dark-green);
+  color: var(--bright-gold);
 }
 
 .font-display {
