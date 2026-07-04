@@ -63,17 +63,6 @@ a {
   font-family: var(--font-display);
 }
 
-.featured-product-card:hover .featured-product-front,
-.featured-product-card:focus-within .featured-product-front {
-  transform: translateY(-72%);
-}
-
-@media (min-width: 48rem) {
-  .featured-product-card:hover .featured-product-front,
-  .featured-product-card:focus-within .featured-product-front {
-    transform: translateX(-82%);
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   *,

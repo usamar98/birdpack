@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { type FormEvent, type ReactNode, useState } from "react";
-import { motion, type Variants } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 
 
 const brand = {
@@ -189,6 +189,35 @@ const reveal: Variants = {
 const stagger: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.09 } },
+};
+
+const featuredCardReveal: Variants = {
+  hidden: {},
+  visible: (index: number = 0) => ({
+    transition: {
+      delayChildren: index * 0.07,
+      staggerChildren: 0.1,
+    },
+  }),
+};
+
+const featuredImageReveal: Variants = {
+  hidden: { opacity: 0, x: -44, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: { duration: 0.72, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const featuredContentReveal: Variants = {
+  hidden: { opacity: 0, x: 44 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.72, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 function Icon({ name, className = "h-6 w-6" }: { name: IconName; className?: string }) {
@@ -444,20 +473,34 @@ function FeaturedProducts() {
 }
 
 function FeaturedProductCard({ product, index }: { product: (typeof featuredProducts)[number]; index: number }) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <article className="featured-product-card group relative isolate overflow-hidden rounded-[30px] border border-[#fff8df]/68 bg-[#fff8df]/28 shadow-[0_26px_70px_rgba(13,59,46,0.13)] backdrop-blur-xl md:min-h-[470px]">
-      <div className="relative z-10 h-[270px] overflow-hidden md:hidden">
-        <ProductThumb image={product.image} alt={product.alt} className="h-full w-full" />
+    <motion.article
+      custom={index}
+      variants={featuredCardReveal}
+      initial={reduceMotion ? false : "hidden"}
+      whileInView="visible"
+      whileHover={reduceMotion ? undefined : { y: -6 }}
+      viewport={{ once: true, amount: 0.26 }}
+      className="group grid overflow-hidden rounded-[30px] border border-[#fff8df]/70 bg-[#fff8df]/46 shadow-[0_26px_70px_rgba(13,59,46,0.13)] backdrop-blur-xl transition-shadow duration-500 hover:shadow-[0_34px_80px_rgba(13,59,46,0.17)] md:min-h-[430px] md:grid-cols-[0.92fr_1.08fr]"
+    >
+      <motion.div variants={featuredImageReveal} className="relative min-h-[260px] overflow-hidden md:min-h-full">
+        <ProductThumb
+          image={product.image}
+          alt={product.alt}
+          className="h-full min-h-[260px] w-full transition-transform duration-700 group-hover:scale-[1.04] md:min-h-full"
+        />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(13,59,46,0.58))]" />
-        <div className="pointer-events-none absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3 text-white">
+        <div className="pointer-events-none absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3 text-white md:hidden">
           <h4 className="font-display text-2xl font-black leading-tight drop-shadow-md">{product.name}</h4>
           <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#fff8df]/84 text-[#0d3b2e] backdrop-blur">
             <Icon name="arrow" className="h-5 w-5" />
           </span>
         </div>
-      </div>
-      <div className="relative z-0 flex flex-col justify-end p-6 md:absolute md:inset-0 md:p-7 md:pl-28">
-        <span className="mb-4 w-fit rounded-full border border-[#0d3b2e]/35 bg-[#fff8df]/52 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#315f4e]">
+      </motion.div>
+      <motion.div variants={featuredContentReveal} className="relative z-10 flex flex-col justify-center p-6 md:p-8 lg:p-9">
+        <span className="mb-4 w-fit rounded-full border border-[#0d3b2e]/35 bg-[#fff8df]/58 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#315f4e]">
           {String(index + 1).padStart(2, "0")} / {String(featuredProducts.length).padStart(2, "0")}
         </span>
         <h3 className="font-display text-3xl font-black leading-tight text-[#0d3b2e] md:text-[34px]">{product.name}</h3>
@@ -468,21 +511,10 @@ function FeaturedProductCard({ product, index }: { product: (typeof featuredProd
         >
           Ask for Details
         </a>
-      </div>
-      <div className="featured-product-front pointer-events-none absolute inset-0 z-10 hidden overflow-hidden transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] md:block">
-        <ProductThumb image={product.image} alt={product.alt} className="h-full w-full" />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(13,59,46,0.58))]" />
-        <div className="pointer-events-none absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3 text-white">
-          <h4 className="font-display text-2xl font-black leading-tight drop-shadow-md">{product.name}</h4>
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#fff8df]/84 text-[#0d3b2e] backdrop-blur">
-            <Icon name="arrow" className="h-5 w-5" />
-          </span>
-        </div>
-      </div>
-    </article>
+      </motion.div>
+    </motion.article>
   );
 }
-
 function WhyChooseUs() {
   return (
     <Section id="why-us" className="py-14 sm:py-20">
