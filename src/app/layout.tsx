@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     title: "Bird Pack",
     description: "Premium Packaging Solutions for Modern Businesses",
     type: "website",
-    images: ["/images/products/customprint.png"],
+    images: ["/images/kraft-paper-roll-hero.png"],
   },
   robots: {
     index: true,
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#fff1bd",
+  themeColor: "#c99a61",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

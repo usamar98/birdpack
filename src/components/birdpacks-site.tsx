@@ -1,8 +1,8 @@
 ﻿"use client";
 
 import Image from "next/image";
-import { type CSSProperties, type FormEvent, type ReactNode, useEffect, useState } from "react";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { type FormEvent, type ReactNode, useState } from "react";
+import { motion, type Variants } from "framer-motion";
 
 
 const brand = {
@@ -24,7 +24,7 @@ const navItems = [
 
 const brandAssets = {
   logo: "/images/products/logo.png",
-  hero: "/images/products/customprint.png",
+  hero: "/images/kraft-paper-roll-hero.png",
 } as const;
 
 const productImages = {
@@ -190,128 +190,6 @@ const stagger: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.09 } },
 };
-
-const categoryCarouselDelay = 3400;
-
-type CategoryCardPose = {
-  xMobile: string;
-  xTablet: string;
-  xDesktop: string;
-  y: string;
-  z: string;
-  rotate: string;
-  scaleMobile: number;
-  scaleTablet: number;
-  scaleDesktop: number;
-  opacity: number;
-  blur: string;
-  zIndex: number;
-};
-
-type CategoryCardStyle = CSSProperties & Record<`--${string}`, string | number>;
-
-function getCircularOffset(index: number, activeIndex: number, total: number) {
-  let offset = index - activeIndex;
-  const half = total / 2;
-
-  if (offset > half) {
-    offset -= total;
-  }
-
-  if (offset < -half) {
-    offset += total;
-  }
-
-  return offset;
-}
-
-function getCategoryCardPose(offset: number): CategoryCardPose {
-  const sign = offset < 0 ? -1 : 1;
-  const distance = Math.abs(offset);
-
-  if (distance === 0) {
-    return {
-      xMobile: "0px",
-      xTablet: "0px",
-      xDesktop: "0px",
-      y: "-50%",
-      z: "170px",
-      rotate: "0deg",
-      scaleMobile: 0.98,
-      scaleTablet: 1.02,
-      scaleDesktop: 1.08,
-      opacity: 1,
-      blur: "0px",
-      zIndex: 60,
-    };
-  }
-
-  if (distance === 1) {
-    return {
-      xMobile: `${sign * 112}px`,
-      xTablet: `${sign * 230}px`,
-      xDesktop: `${sign * 335}px`,
-      y: "-48%",
-      z: "20px",
-      rotate: `${sign * -18}deg`,
-      scaleMobile: 0.64,
-      scaleTablet: 0.72,
-      scaleDesktop: 0.78,
-      opacity: 0.96,
-      blur: "0px",
-      zIndex: 45,
-    };
-  }
-
-  if (distance === 2) {
-    return {
-      xMobile: `${sign * 145}px`,
-      xTablet: `${sign * 360}px`,
-      xDesktop: `${sign * 540}px`,
-      y: "-44%",
-      z: "-115px",
-      rotate: `${sign * -30}deg`,
-      scaleMobile: 0.44,
-      scaleTablet: 0.5,
-      scaleDesktop: 0.56,
-      opacity: 0.46,
-      blur: "0.6px",
-      zIndex: 20,
-    };
-  }
-
-  if (distance >= 4) {
-    return {
-      xMobile: "0px",
-      xTablet: "0px",
-      xDesktop: "0px",
-      y: "-43%",
-      z: "-310px",
-      rotate: `${sign * -8}deg`,
-      scaleMobile: 0.34,
-      scaleTablet: 0.38,
-      scaleDesktop: 0.42,
-      opacity: 0.18,
-      blur: "1.4px",
-      zIndex: 5,
-    };
-  }
-
-  return {
-    xMobile: `${sign * 82}px`,
-    xTablet: `${sign * 470}px`,
-    xDesktop: `${sign * 680}px`,
-    y: "-43%",
-    z: "-235px",
-    rotate: `${sign * -40}deg`,
-    scaleMobile: 0.34,
-    scaleTablet: 0.4,
-    scaleDesktop: 0.46,
-    opacity: 0.26,
-    blur: "1px",
-    zIndex: 10,
-  };
-}
 
 function Icon({ name, className = "h-6 w-6" }: { name: IconName; className?: string }) {
   const common = {
@@ -518,13 +396,13 @@ function Hero() {
     <section id="top" className="relative isolate overflow-hidden">
       <Image
         src={brandAssets.hero}
-        alt="Custom printed Bird Pack packaging displayed in a product showcase"
+        alt="Kraft paper rolls arranged as a warm packaging material background"
         fill
         priority
         sizes="100vw"
         className="absolute inset-0 -z-20 object-cover object-center"
       />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(255,232,154,0.9)_0%,rgba(255,250,232,0.76)_39%,rgba(255,241,189,0.28)_70%,rgba(255,241,189,0.08)_100%)]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(194,139,77,0.92)_0%,rgba(211,166,104,0.76)_40%,rgba(201,154,97,0.24)_72%,rgba(201,154,97,0.04)_100%)]" />
       <Container className="flex min-h-[620px] items-center py-16 sm:py-20 lg:min-h-[680px]">
         <div className="relative z-10 w-full max-w-3xl">
           <h1 className="font-display max-w-[700px] text-[42px] font-black leading-[1] text-[#0d3b2e] drop-shadow-[0_2px_12px_rgba(255,248,223,0.58)] sm:text-[56px] lg:text-[68px]">
@@ -547,171 +425,9 @@ function Hero() {
   );
 }
 
-function ProductCategories() {
-  const [activeIndex, setActiveIndex] = useState(1);
-  const [isPaused, setIsPaused] = useState(false);
-  const prefersReducedMotion = useReducedMotion();
-  const totalCategories = categories.length;
-  const activeCategory = categories[activeIndex];
-
-  useEffect(() => {
-    if (prefersReducedMotion || isPaused) {
-      return;
-    }
-
-    const timer = window.setInterval(() => {
-      setActiveIndex((currentIndex) => (currentIndex + 1) % totalCategories);
-    }, categoryCarouselDelay);
-
-    return () => window.clearInterval(timer);
-  }, [isPaused, prefersReducedMotion, totalCategories]);
-
-  function showCategory(index: number) {
-    setActiveIndex((index + totalCategories) % totalCategories);
-  }
-
-  function showPreviousCategory() {
-    showCategory(activeIndex - 1);
-  }
-
-  function showNextCategory() {
-    showCategory(activeIndex + 1);
-  }
-
-  return (
-    <Section id="products" className="scroll-mt-16 overflow-hidden py-16 sm:py-24">
-      <Container>
-        <SectionHeading
-          title="Product Categories"
-          subtitle="Packaging categories for retail, shipping, food, gifting, bakery, and custom branded orders."
-        />
-
-        <div className="relative">
-          <div className="pointer-events-none absolute left-1/2 top-8 h-44 w-[min(90vw,760px)] -translate-x-1/2 rounded-full bg-[#fff8df]/45 blur-3xl" />
-          <div
-            className="relative mx-auto h-[500px] max-w-6xl overflow-visible [perspective:1200px] sm:h-[610px] lg:h-[650px] lg:[perspective:1600px]"
-            onPointerEnter={() => setIsPaused(true)}
-            onPointerLeave={() => setIsPaused(false)}
-            onFocus={() => setIsPaused(true)}
-            onBlur={() => setIsPaused(false)}
-          >
-            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[78%] w-[min(94vw,980px)] -translate-x-1/2 -translate-y-[41%] rounded-full border border-[#b88a20]/35 bg-[radial-gradient(circle,rgba(255,248,223,0.86),rgba(255,232,154,0.3)_58%,transparent_72%)] shadow-[0_42px_90px_rgba(13,59,46,0.12)] [transform:rotateX(63deg)]" />
-            <p className="sr-only" aria-live="polite">
-              Showing {activeCategory.name}
-            </p>
-
-            {categories.map((category, index) => {
-              const offset = getCircularOffset(index, activeIndex, totalCategories);
-              const pose = getCategoryCardPose(offset);
-              const isActive = offset === 0;
-              const isSideCard = Math.abs(offset) === 1;
-              const cardStyle: CategoryCardStyle = {
-                "--category-x-mobile": pose.xMobile,
-                "--category-x-tablet": pose.xTablet,
-                "--category-x-desktop": pose.xDesktop,
-                "--category-y": pose.y,
-                "--category-z": pose.z,
-                "--category-rotate": pose.rotate,
-                "--category-scale-mobile": pose.scaleMobile,
-                "--category-scale-tablet": pose.scaleTablet,
-                "--category-scale-desktop": pose.scaleDesktop,
-                backgroundColor: category.color,
-                filter: `blur(${pose.blur})`,
-                opacity: pose.opacity,
-                transform: "translate3d(calc(-50% + var(--category-x)), var(--category-y), var(--category-z)) rotateY(var(--category-rotate)) scale(var(--category-scale))",
-                zIndex: pose.zIndex,
-              };
-
-              return (
-                <article
-                  key={category.name}
-                  aria-hidden={Math.abs(offset) > 3}
-                  className={`group absolute left-1/2 top-1/2 h-[350px] w-[min(76vw,335px)] overflow-hidden rounded-[42px] border border-white/70 bg-[#fff8df] shadow-[0_34px_90px_rgba(13,59,46,0.22)] transition-[filter,opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] [--category-scale:var(--category-scale-mobile)] [--category-x:var(--category-x-mobile)] [transform-style:preserve-3d] [will-change:transform] sm:h-[430px] sm:w-[380px] sm:[--category-scale:var(--category-scale-tablet)] sm:[--category-x:var(--category-x-tablet)] lg:h-[500px] lg:w-[430px] lg:[--category-scale:var(--category-scale-desktop)] lg:[--category-x:var(--category-x-desktop)] ${isActive ? "pointer-events-auto" : "cursor-pointer"}`}
-                  style={cardStyle}
-                >
-                  <div className="pointer-events-none absolute inset-0 rounded-[42px] border border-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),inset_0_-28px_50px_rgba(13,59,46,0.08)]" />
-                  <div className="pointer-events-none absolute -right-3 top-12 h-[calc(100%-96px)] w-6 rounded-r-[34px] bg-[#b88a20]/24 blur-[1px]" />
-                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,250,232,0.9),rgba(255,248,223,0.24)_48%,rgba(13,59,46,0.08))]" />
-
-                  <div className={`relative z-10 overflow-hidden border border-white/70 bg-transparent shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35)] ${isActive ? "mx-4 mt-4 h-[56%] rounded-[34px] sm:mx-5 sm:mt-5" : "h-full rounded-[42px]"}`}>
-                    <ProductThumb image={category.image} alt={category.alt} className="h-full w-full transition-transform duration-700 group-hover:scale-[1.04]" />
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_28%_18%,rgba(255,250,232,0.7),transparent_34%),linear-gradient(180deg,transparent_45%,rgba(13,59,46,0.36))]" />
-                  </div>
-
-                  {isActive ? (
-                    <div className="relative z-10 flex min-h-[44%] flex-col justify-between p-5 sm:p-6">
-                      <div>
-                        <span className="inline-flex rounded-full border border-[#0d3b2e]/25 bg-[#fff8df]/70 px-4 py-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#315f4e] backdrop-blur">
-                          Category {String(index + 1).padStart(2, "0")}
-                        </span>
-                        <h3 className="font-display mt-3 text-[30px] font-black leading-[1.02] text-[#0d3b2e] sm:text-[42px]">{category.name}</h3>
-                        <p className="mt-3 line-clamp-3 text-sm leading-6 text-[#315f4e] sm:text-base sm:leading-7">{category.description}</p>
-                      </div>
-                      <a
-                        href="#contact"
-                        className="mt-4 inline-flex min-h-11 w-fit items-center justify-center gap-3 rounded-2xl bg-[#0d3b2e] px-5 text-sm font-extrabold text-[#fff8df] shadow-[0_18px_34px_rgba(13,59,46,0.22)] transition hover:bg-[#082f24]"
-                      >
-                        Ask about this
-                        <Icon name="arrow" className="h-4 w-4" />
-                      </a>
-                    </div>
-                  ) : (
-                    <div className={`pointer-events-none absolute inset-x-4 bottom-4 z-10 rounded-[26px] border border-white/65 bg-[#fff8df]/78 px-4 py-3 text-center shadow-[0_18px_36px_rgba(13,59,46,0.12)] backdrop-blur ${isSideCard ? "opacity-100" : "opacity-80"}`}>
-                      <h3 className="font-display text-lg font-black leading-tight text-[#0d3b2e] sm:text-xl">{category.name}</h3>
-                    </div>
-                  )}
-
-                  {!isActive ? (
-                    <button
-                      type="button"
-                      aria-label={`Show ${category.name}`}
-                      className="absolute inset-0 z-20 rounded-[42px] focus:outline-none focus:ring-4 focus:ring-[#0d3b2e]/25"
-                      onClick={() => showCategory(index)}
-                    />
-                  ) : null}
-                </article>
-              );
-            })}
-          </div>
-
-          <div className="relative z-20 mt-3 flex items-center justify-center gap-4 sm:mt-0">
-            <button
-              type="button"
-              aria-label="Previous product category"
-              className="grid h-11 w-11 place-items-center rounded-full border border-[#0d3b2e]/35 bg-[#fff8df]/70 text-[#0d3b2e] shadow-[0_14px_32px_rgba(13,59,46,0.12)] backdrop-blur transition hover:bg-[#fff8df] focus:outline-none focus:ring-4 focus:ring-[#0d3b2e]/15"
-              onClick={showPreviousCategory}
-            >
-              <Icon name="arrow" className="h-5 w-5 rotate-180" />
-            </button>
-            <div className="flex items-center gap-2" aria-label="Product category selector">
-              {categories.map((category, index) => (
-                <button
-                  key={`category-dot-${category.name}`}
-                  type="button"
-                  aria-label={`Show ${category.name}`}
-                  aria-current={index === activeIndex ? "true" : undefined}
-                  className={`h-2.5 rounded-full transition-all focus:outline-none focus:ring-4 focus:ring-[#0d3b2e]/15 ${index === activeIndex ? "w-8 bg-[#0d3b2e]" : "w-2.5 bg-[#0d3b2e]/30 hover:bg-[#0d3b2e]/55"}`}
-                  onClick={() => showCategory(index)}
-                />
-              ))}
-            </div>
-            <button
-              type="button"
-              aria-label="Next product category"
-              className="grid h-11 w-11 place-items-center rounded-full border border-[#0d3b2e]/35 bg-[#fff8df]/70 text-[#0d3b2e] shadow-[0_14px_32px_rgba(13,59,46,0.12)] backdrop-blur transition hover:bg-[#fff8df] focus:outline-none focus:ring-4 focus:ring-[#0d3b2e]/15"
-              onClick={showNextCategory}
-            >
-              <Icon name="arrow" className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
-      </Container>
-    </Section>
-  );
-}
 function FeaturedProducts() {
   return (
-    <Section id="featured" className="scroll-mt-16 py-14 sm:py-20">
+    <Section id="products" className="scroll-mt-16 py-14 sm:py-20">
       <Container>
         <SectionHeading
           title="Featured Products"
@@ -933,7 +649,7 @@ function Footer() {
             <p className="mt-5 max-w-sm text-sm leading-7 text-[#315f4e]">High-quality packaging products for businesses that need polished presentation, reliable materials, and clear support.</p>
           </div>
           <FooterColumn title="Quick Links" items={navItems.map((item) => ({ label: item.label, href: item.href }))} />
-          <FooterColumn title="Product Categories" items={categories.slice(0, 6).map((item) => ({ label: item.name, href: "#products" }))} />
+          <FooterColumn title="Product Range" items={categories.slice(0, 6).map((item) => ({ label: item.name, href: "#products" }))} />
           <div>
             <h3 className="font-black text-[#0d3b2e]">Contact Info</h3>
             <p className="mt-4 text-sm leading-7 text-[#315f4e]">{brand.location}</p>
@@ -968,10 +684,9 @@ function FooterColumn({ title, items }: { title: string; items: { label: string;
 
 export default function BirdPackSite() {
   return (
-    <main className="min-h-screen overflow-x-clip bg-[#fff1bd] text-[#0d3b2e]">
+    <main className="min-h-screen overflow-x-clip bg-[#c99a61] text-[#0d3b2e]">
       <Header />
       <Hero />
-      <ProductCategories />
       <FeaturedProducts />
       <WhyChooseUs />
       <CustomPackaging />
