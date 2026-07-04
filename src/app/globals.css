@@ -1,16 +1,16 @@
 ﻿@import "tailwindcss";
 
 :root {
-  --background: #c99a61;
+  --background: #fff4d6;
   --foreground: #0d3b2e;
   --dark-green: #0d3b2e;
   --dark-green-hover: #082f24;
-  --gold: #c99a61;
-  --bright-gold: #e4bd7c;
-  --soft-gold: #f1d5a4;
-  --panel-gold: #f3d7a7;
-  --gold-border: #9f6d35;
-  --muted-green: #294f3f;
+  --gold: #fff4d6;
+  --bright-gold: #ffe5a3;
+  --soft-gold: #fff8e8;
+  --panel-gold: #fffdf3;
+  --gold-border: #d9ac54;
+  --muted-green: #315f4e;
   --font-display: Georgia, "Times New Roman", serif;
   --font-body: "Segoe UI", Arial, Helvetica, sans-serif;
 }
@@ -34,8 +34,9 @@ html {
 body {
   min-height: 100vh;
   background:
-    linear-gradient(180deg, rgba(241, 213, 164, 0.36), transparent 34%),
-    linear-gradient(105deg, rgba(126, 82, 40, 0.18), transparent 28%, rgba(245, 216, 172, 0.14) 68%, transparent),
+    radial-gradient(circle at 18% 8%, rgba(255, 255, 246, 0.86), transparent 30%),
+    linear-gradient(180deg, rgba(255, 251, 231, 0.74), transparent 34%),
+    linear-gradient(105deg, rgba(255, 232, 163, 0.24), transparent 28%, rgba(255, 253, 243, 0.38) 68%, transparent),
     var(--background);
   color: var(--foreground);
   font-family: var(--font-body);

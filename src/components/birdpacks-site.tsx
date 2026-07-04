@@ -684,7 +684,7 @@ function FooterColumn({ title, items }: { title: string; items: { label: string;
 
 export default function BirdPackSite() {
   return (
-    <main className="min-h-screen overflow-x-clip bg-[#c99a61] text-[#0d3b2e]">
+    <main className="min-h-screen overflow-x-clip bg-[#fff4d6] text-[#0d3b2e]">
       <Header />
       <Hero />
       <FeaturedProducts />
